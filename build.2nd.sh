@@ -62,4 +62,51 @@ cd ../../
 rm -rf glibc-2.23
 
 
+# build Libstdc++
+cd $BUILDTMP
+tar xvf $SRCROOT/gcc-5.3.0.tar.bz2
+cd gcc-5.3.0
+
+tar -xf $SRCROOT/mpfr-3.1.3.tar.xz
+mv -v mpfr-3.1.3 mpfr
+tar -xf $SRCROOT/gmp-6.1.0.tar.xz
+mv -v gmp-6.1.0 gmp
+tar -xf $SRCROOT/mpc-1.0.3.tar.gz
+mv -v mpc-1.0.3 mpc
+
+for file in \
+ $(find gcc/config -name linux64.h -o -name linux.h -o -name sysv4.h)
+do
+  cp -uv $file{,.orig}
+  sed -e "s@/lib\(64\)\?\(32\)\?/ld@$CROSS&@g" \
+      -e "s@/usr@$CROSS@g" $file.orig > $file
+  echo "
+#undef STANDARD_STARTFILE_PREFIX_1
+#undef STANDARD_STARTFILE_PREFIX_2
+#define STANDARD_STARTFILE_PREFIX_1 \"$CROSS/lib/\"
+#define STANDARD_STARTFILE_PREFIX_2 \"\"" >> $file
+  touch $file.orig
+done
+
+mkdir -v build
+cd       build
+
+../libstdc++-v3/configure           \
+    --host=$LFS_TGT                 \
+    --prefix=$CROSS                 \
+    --disable-multilib              \
+    --disable-nls                   \
+    --disable-libstdcxx-threads     \
+    --disable-libstdcxx-pch         \
+    --with-gxx-include-dir=$CROSS/include/c++/5.3.0
+
+$MAKE $MFLAGS
+$MAKE $MFLAGS install
+
+cd ../../
+rm -rf  gcc-5.3.0
+
+# build binutils-2
+
+
 
