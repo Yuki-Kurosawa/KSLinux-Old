@@ -12,13 +12,13 @@ mpc 1.0.3<br/>
 linux 4.4.2<br/>
 glibc 2.23<br/>
 libstdc++ 5.3.0 (part of gcc 5.3.0)<br/>
-<WARNING style="color:blue;">
-Other version not tested
-</WARNING><br/>
+<span style="color:blue;">
+WARNING: Other version not tested
+</span><br/>
 2. using these commands to check your enviroment:<br/>
 source library-check.sh<br/>
 source version-check.sh<br/>
 3. Update Variables in build.1st.sh<br/>
 4. Run following command to build<br/>
 source build.1st.sh<br/>
-<ERROR style="color:red;">DO NOT RUN AS ROOT</ERROR>
+<span style="color:red;">ERROR: DO NOT RUN AS ROOT</span>
