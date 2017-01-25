@@ -5,6 +5,7 @@ export KS=/ks/ramfs
 export BUILDTMP=/tool/tmp
 export CROSS=/tool/cross
 export LIBPARENT=/tool
+export SCRIPTROOT=/tool
 
 # set env var
 rm -rf {$KS,$BUILDTMP,$CROSS} 2>/dev/null
@@ -106,5 +107,5 @@ $MAKE $MFLAGS
 $MAKE $MFLAGS install
 cd ../../
 rm -rf  gcc-5.3.0
-source /tool/build.2nd.sh
+source $SCRIPTROOT/build.2nd.sh
 
