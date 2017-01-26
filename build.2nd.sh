@@ -98,7 +98,7 @@ cd       build
     --disable-nls                   \
     --disable-libstdcxx-threads     \
     --disable-libstdcxx-pch         \
-    --with-gxx-include-dir=$CROSS/include/c++/5.3.0
+    --with-gxx-include-dir=$CROSS/$LFS_TGT/include/c++/5.3.0
 
 $MAKE $MFLAGS
 $MAKE $MFLAGS install
