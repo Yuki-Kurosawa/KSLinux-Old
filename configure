@@ -38,7 +38,7 @@ CONF_YACC(){
 		echo $YACC
 		return 0
 	else
-		echo ""
+		echo "not found"
 		echo "Please run following command with root:"
 		echo "apt install bison -y"
 		exit 1
@@ -76,7 +76,7 @@ CONF_AWK(){
 		echo $AWK
 		return 0
 	else
-		echo ""
+		echo "not found"
 		echo "Please run following command with root:"
 		echo "apt install gawk -y"
 		exit 1
