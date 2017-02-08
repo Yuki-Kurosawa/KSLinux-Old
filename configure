@@ -254,21 +254,62 @@ CONF_LIBGCC(){
 	GMP=0
 	MPFR=0
 	MPC=0
-	echo -n "Checking libgmp.la Library ... "	
+	echo -n "Checking libgmp.la 32bit Library ... "	
 	if [ -f $LIBGMP ];then
 		echo $LIBGMP
 	else
 		echo "not found"
 		GMP=1
 	fi
-	echo -n "Checking libmpfr.la Library ... "	
+	echo -n "Checking libmpfr.la 32bit Library ... "	
 	if [ -f $LIBMPFR ];then
 		echo $LIBMPFR
 	else
 		echo "not found"
 		MPFR=1
 	fi
-	echo -n "Checking libmpc.la Library ... "	
+	echo -n "Checking libmpc.la 32bit Library ... "	
+	if [ -f $LIBMPC ];then
+		echo $LIBMPC
+	else
+		echo "not found"
+		MPC=1
+	fi
+	if [ $MPC -eq 0 ] && [ $MPFR -eq 0 ] && [ $GMP -eq 0 ];then
+		return 0
+	elif [ $MPC -eq 1 ] && [ $MPFR -eq 1 ] && [ $GMP -eq 1 ];then
+		return 0
+	else
+		echo "libgmp, libmpc and libmpfr must be all present or all non-exists"
+		echo "please run following command to install all or remove all:"
+		echo "install) apt install libgmp-dev libmpfr-dev libmpc-dev -y"
+		echo "remove)  apt purge libgmp-dev libmpfr-dev libmpc-dev -y"
+		exit 1
+	fi
+}
+
+CONF_LIBGCC64(){
+	LIBGMP="/usr/lib64/libgmp.la"
+	LIBMPFR="/usr/lib64/libmpfr.la"
+	LIBMPC="/usr/lib64/libmpc.la"
+	GMP=0
+	MPFR=0
+	MPC=0
+	echo -n "Checking libgmp.la 64bit Library ... "	
+	if [ -f $LIBGMP ];then
+		echo $LIBGMP
+	else
+		echo "not found"
+		GMP=1
+	fi
+	echo -n "Checking libmpfr.la 64bit Library ... "	
+	if [ -f $LIBMPFR ];then
+		echo $LIBMPFR
+	else
+		echo "not found"
+		MPFR=1
+	fi
+	echo -n "Checking libmpc.la 64bit Library ... "	
 	if [ -f $LIBMPC ];then
 		echo $LIBMPC
 	else
@@ -303,6 +344,7 @@ CONF_LDD
 CONF_GCC
 CONF_GXX
 CONF_LIBGCC
+CONF_LIBGCC64
 CONF_LOG
 
 
