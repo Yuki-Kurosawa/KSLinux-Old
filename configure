@@ -34,7 +34,7 @@ CONF_SH_BASH(){
 CONF_YACC(){
 	echo -n 'Checking yacc ... '
 	YACC="/usr/bin/yacc"
-	if [ -h $YACC ];then
+	if [ -f $YACC ];then
 		echo $YACC
 		return 0
 	else
@@ -72,7 +72,7 @@ CONF_YACC_BISON(){
 CONF_AWK(){
 	echo -n 'Checking awk ... '
 	AWK="/usr/bin/awk"
-	if [ -h $AWK ];then
+	if [ -f $AWK ];then
 		echo $AWK
 		return 0
 	else
@@ -114,8 +114,178 @@ CONF_LOG(){
 	echo done
 }
 
+CONF_MAKEINFO(){
+	echo -n 'Checking makeinfo ... '
+	MAKEINFO="/usr/bin/makeinfo"
+	if [ -f $MAKEINFO ];then
+		echo $MAKEINFO
+		return 0
+	else
+		echo "not found"
+		echo "Please run following command with root:"
+		echo "apt install texinfo -y"
+		exit 1
+	fi
+}
+
+CONF_PERL(){
+	echo -n 'Checking perl ... '
+	perl="/usr/bin/perl"
+	if [ -f $perl ];then
+		echo $perl
+		return 0
+	else
+		echo "not found"
+		echo "Please run following command with root:"
+		echo "apt install perl-base -y"
+		exit 1
+	fi
+}
+
+CONF_PATCH(){
+	echo -n 'Checking patch ... '
+	patch="/usr/bin/patch"
+	if [ -f $patch ];then
+		echo $patch
+		return 0
+	else
+		echo "not found"
+		echo "Please run following command with root:"
+		echo "apt install patch -y"
+		exit 1
+	fi
+}
+
+CONF_MAKE(){
+	echo -n 'Checking make ... '
+	make="/usr/bin/make"
+	if [ -f $make ];then
+		echo $make
+		return 0
+	else
+		echo "not found"
+		echo "Please run following command with root:"
+		echo "apt install make -y"
+		exit 1
+	fi
+}
+
+CONF_M4(){
+	echo -n 'Checking m4 ... '
+	m4="/usr/bin/m4"
+	if [ -f $m4 ];then
+		echo $m4
+		return 0
+	else
+		echo "not found"
+		echo "Please run following command with root:"
+		echo "apt install m4 -y"
+		exit 1
+	fi
+}
+
+CONF_LDD(){
+	echo -n 'Checking ldd ... '
+	ldd="/usr/bin/ldd"
+	if [ -f $ldd ];then
+		echo $ldd
+		return 0
+	else
+		echo "not found"
+		echo "Please run following command with root:"
+		echo "apt install libc-bin -y"
+		exit 1
+	fi
+}
+
+CONF_C_COMPILE(){
+	CCC=$1
+	CC=$(readlink -f $CCC|sed -rne 's@.*/@@p')
+	echo -n "Checking $CC works ... "
+	cat > c.c <<EOF
+	int main(){return 0;}
+EOF
+	$CC c.c 2>/dev/null
+	if [ -f a.out ];then
+		echo "yes"
+	else
+		echo "no"
+		exit 1
+	fi
+	rm a.out
+	rm c.c
+}
+
+CONF_GCC(){
+	echo -n 'Checking gcc ... '
+	gcc="/usr/bin/gcc"
+	if [ -f $gcc ];then
+		echo $gcc
+		CONF_C_COMPILE $gcc
+		return 0
+	else
+		echo "not found"
+		echo "Please run following command with root:"
+		echo "apt install gcc -y"
+		exit 1
+	fi
+}
+
+CONF_GXX(){
+	echo -n 'Checking g++ ... '
+	gxx="/usr/bin/g++"
+	if [ -f $gxx ];then
+		echo $gxx
+		CONF_C_COMPILE $gxx
+		return 0
+	else
+		echo "not found"
+		echo "Please run following command with root:"
+		echo "apt install g++ -y"
+		exit 1
+	fi
+
+}
+
 CONF_LIBGCC(){
-	return 0
+	LIBGMP="/usr/lib/libgmp.la"
+	LIBMPFR="/usr/lib/libmpfr.la"
+	LIBMPC="/usr/lib/libmpc.la"
+	GMP=0
+	MPFR=0
+	MPC=0
+	echo -n "Checking libgmp.la Library ... "	
+	if [ -f $LIBGMP ];then
+		echo $LIBGMP
+	else
+		echo "not found"
+		GMP=1
+	fi
+	echo -n "Checking libmpfr.la Library ... "	
+	if [ -f $LIBMPFR ];then
+		echo $LIBMPFR
+	else
+		echo "not found"
+		MPFR=1
+	fi
+	echo -n "Checking libmpc.la Library ... "	
+	if [ -f $LIBMPC ];then
+		echo $LIBMPC
+	else
+		echo "not found"
+		MPC=1
+	fi
+	if [ $MPC -eq 0 ] && [ $MPFR -eq 0 ] && [ $GMP -eq 0 ];then
+		return 0
+	elif [ $MPC -eq 1 ] && [ $MPFR -eq 1 ] && [ $GMP -eq 1 ];then
+		return 0
+	else
+		echo "libgmp, libmpc and libmpfr must be all present or all non-exists"
+		echo "please run following command to install all or remove all:"
+		echo "install) apt install libgmp-dev libmpfr-dev libmpc-dev -y"
+		echo "remove)  apt purge libgmp-dev libmpfr-dev libmpc-dev -y"
+		exit 1
+	fi
 }
 
 CONF_SHELL_BASH
@@ -124,6 +294,14 @@ CONF_YACC
 CONF_YACC_BISON
 CONF_AWK
 CONF_AWK_GAWK
+CONF_MAKEINFO
+CONF_PERL
+CONF_PATCH
+CONF_MAKE
+CONF_M4
+CONF_LDD
+CONF_GCC
+CONF_GXX
 CONF_LIBGCC
 CONF_LOG
 
