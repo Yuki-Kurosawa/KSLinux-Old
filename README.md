@@ -16,8 +16,8 @@ libstdc++ 5.3.0 (part of gcc 5.3.0)<br/>
 **WARNING: Other version not tested**
 </font><br/>
 2. using these commands to check your enviroment:<br/>
-source library-check.sh<br/>
-source version-check.sh<br/>
+./configure<br/>
+it will create config.detail if check test complete successfully<br/>
 3. Update Variables in build.1st.sh<br/>
 4. Run following command to build<br/>
 source build.1st.sh<br/>
