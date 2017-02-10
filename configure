@@ -414,7 +414,7 @@ CONF_KPM(){
 CONF_LANG(){
 	if [ $PLANG -eq 1 ] || [ $PLANGUAGE -eq 1 ];then
 		echo "yes"
-		echo "You may meet some error while build some"
+		echo "You may meet some error while building some"
 		echo "packages,run following command to solve:"
 		echo "unset LANG; unset LANGUAGE;"
 	else
@@ -461,8 +461,8 @@ PARSE_ARGS(){
 					--target) TARGET=$2; shift 2 ;; #LFS_TGT
 					--cross)  CROSS=$2;  shift 2 ;; #CROSS
 					--sysroot) SYSROOT=$2; shift 2 ;; #LIBPARENT
-					--srcdir) SRCDIR=$2; shift 2 ;; #SCRIPTROOT
-					--tmpdir) TMPDIR=$2; shift 2 ;;	#BUILDTMP
+					--srcdir) SRCDIR=$2; shift 2 ;; #SOURCEROOT
+					--tmpdir) TMPDIR=$2; shift 2 ;; #BUILDTMP
 					--version) SHOW_VERSION; exit 0;; #VERSION
 					--help) SHOW_HELP; exit 0;; #HELP
 					--) shift ; break ;;
@@ -540,6 +540,75 @@ CONF_DIR(){
 	return 0;
 }
 
+CONF_OUTPUT_ENV(){
+	echo -n "Creating envsetup.sh ... "	
+	#prefix=ks
+	#target=tgt
+	#cross
+	#sysroot=lib
+	#tmpdir=tmp
+	#srcdir=srcroot
+
+	cat > envsetup.sh <<EOF
+#!/bin/bash
+
+export SRCROOT=$SRCDIR
+export KS=$PREFIX
+export BUILDTMP=$TMPDIR
+export CROSS=$CROSS
+export LIBPARENT=$SYSROOT
+export SCRIPTROOT=$(pwd)
+EOF
+echo '
+# set env var
+rm -rf {$KS,$BUILDTMP,$CROSS} 2>/dev/null
+mkdir -p {$KS,$BUILDTMP,$CROSS} 2>/dev/null
+
+set +h
+umask 022
+LFS=$KS
+LC_ALL=POSIX' >> envsetup.sh
+
+cat >> envsetup.sh <<EOF
+LFS_TGT=$TARGET
+EOF
+echo '
+PATH=$CROSS/bin:/bin:/usr/bin
+MAKE=make
+MFLAGS=-j4
+export LFS LC_ALL LFS_TGT PATH MAKE MFLAGS
+'>>envsetup.sh
+chmod a+x envsetup.sh
+	echo "done"
+}
+
+CONF_OUTPUT_MAKEFILE(){
+	echo -n "Creating Makefile ... "
+	cat > makefile <<EOF
+all: cross-gcc-stage1 cross-gcc-stage2
+envsetup.sh: 
+build.1st: build.1st.sh
+	@cat envsetup.sh >build.1st
+	@cat build.1st.sh >>build.1st
+	@chmod a+x build.1st
+build.2nd: build.2nd.sh
+	@cat envsetup.sh >build.2nd
+	@cat build.1st.sh >>build.2nd
+	@sed "11,12d" build.2nd > build.2nd.so
+	@mv build.2nd.so build.2nd
+	@chmod a+x build.2nd
+cross-gcc-stage1: build.1st
+	@./build.1st
+	@touch cross-gcc-stage1
+cross-gcc-stage2: cross-gcc-stage1 build.2nd 
+	@./build.2nd
+	@touch cross-gcc-stage2
+clean:
+	@rm -rf makefile build.1st build.2nd cross-gcc-stage1 cross-gcc-stage2
+EOF
+	echo "done"
+}
+
 CONF_WORK(){	
 	CONF_DEBIAN
 	CONF_ROOT
@@ -562,6 +631,8 @@ CONF_WORK(){
 	CONF_LIBGCC
 	CONF_LIBGCC64
 	CONF_LANG
+	CONF_OUTPUT_ENV
+	CONF_OUTPUT_MAKEFILE
 }
 
 CONF_PREINIT
