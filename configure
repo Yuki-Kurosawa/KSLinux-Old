@@ -479,7 +479,7 @@ CONF_PREINIT(){
 	PREFIX=/ks/ramfs
 	TARGET=$(uname -m)-ks-linux-gnu
 	SYSROOT=/tool
-	CROSS= $SYSROOT/cross
+	CROSS=$SYSROOT/cross
 	SRCDIR=$SYSROOT/src
 	TMPDIR=$SYSROOT/tmp
 }
