@@ -541,14 +541,7 @@ CONF_DIR(){
 }
 
 CONF_OUTPUT_ENV(){
-	echo -n "Creating envsetup.sh ... "	
-	#prefix=ks
-	#target=tgt
-	#cross
-	#sysroot=lib
-	#tmpdir=tmp
-	#srcdir=srcroot
-
+	echo -n "Creating envsetup.sh ... "
 	cat > envsetup.sh <<EOF
 #!/bin/bash
 
