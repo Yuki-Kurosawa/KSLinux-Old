@@ -411,25 +411,161 @@ CONF_KPM(){
 	fi
 }
 
-CONF_DEBIAN
-CONF_ROOT
-CONF_SHELL_BASH
-CONF_SH_BASH
-CONF_KPM
-CONF_YACC
-CONF_YACC_BISON
-CONF_AWK
-CONF_AWK_GAWK
-CONF_MAKEINFO
-CONF_PERL
-CONF_PATCH
-CONF_MAKE
-CONF_M4
-CONF_LDD
-CONF_GCC
-CONF_GXX
-CONF_LIBGCC
-CONF_LIBGCC64
-#CONF_LOG
+CONF_LANG(){
+	if [ $PLANG -eq 1 ] || [ $PLANGUAGE -eq 1 ];then
+		echo "yes"
+		echo "You may meet some error while build some"
+		echo "packages,run following command to solve:"
+		echo "unset LANG; unset LANGUAGE;"
+	else
+		echo "no"
+		return 0
+	fi
+}
+
+SHOW_HELP(){
+	SHOW_VERSION
+	echo ""
+	echo "--------------------------"
+	echo ""
+	echo "Usage: configure [options]"
+	echo ""
+	echo "options:"
+	echo "  --prefix=<prefix>  sets prefix dir (default: /ks/ramfs)"
+	echo "  --target=<target>  sets build target (default: ARCH-ks-linux-gnu)"
+	echo "                     ARCH=$(uname -m)"
+	echo "  --cross=<cross>    sets cross complier build path (default: SYSROOT/cross)"
+	echo "  --sysroot=<root>   sets sysroot dir (default: /tool)"
+	echo "  --srcdir=<srcdir>  sets source dir which contains source (default: SYSROOT/src)"
+	echo "  --tmpdir=<tmpdir>  sets temp dir to store temp files (default: SYSROOT/tmp)"
+	echo "  --version          show version of configure"
+	echo "  --help             show this help"
+}
+
+SHOW_VERSION(){
+	echo "Kurasawa Configure Version: 1.0"
+	echo "(C)Copyright Ruby Kurosawa 2000~2017"
+	echo "This Script is licensed by Kurosawa"
+	echo "Open Source License GPLv3-Compactible"
+	echo "Version"
+}
+
+PARSE_ARGS(){
+	TEMP=`getopt -o "" --long "prefix:,target:,sysroot:,srcdir:,tmpdir:,cross:,version,help" -n 'configure' -- "$@"`
+	if [ $? != 0 ] ; then SHOW_HELP >&2 ; exit 1 ; fi
+
+	eval set -- "$TEMP"
+	while true ; do
+			case "$1" in
+					--prefix) PREFIX=$2; shift 2 ;; #KS
+					--target) TARGET=$2; shift 2 ;; #LFS_TGT
+					--cross)  CROSS=$2;  shift 2 ;; #CROSS
+					--sysroot) SYSROOT=$2; shift 2 ;; #LIBPARENT
+					--srcdir) SRCDIR=$2; shift 2 ;; #SCRIPTROOT
+					--tmpdir) TMPDIR=$2; shift 2 ;;	#BUILDTMP
+					--version) SHOW_VERSION; exit 0;; #VERSION
+					--help) SHOW_HELP; exit 0;; #HELP
+					--) shift ; break ;;
+					*) SHOW_HELP; exit 1 ;;
+			esac
+	done
+}
+
+CONF_PREINIT(){
+	PLANG=0
+	PLANGUAGE=0
+	if [ $LANG ];then PLANG=1; unset LANG; fi
+	if [ $LANGUAGE ];then PLANGUAGE=1; unset LANGUAGE; fi
+	PREFIX=/ks/ramfs
+	TARGET=$(uname -m)-ks-linux-gnu
+	SYSROOT=/tool
+	CROSS= $SYSROOT/cross
+	SRCDIR=$SYSROOT/src
+	TMPDIR=$SYSROOT/tmp
+}
+
+CONF_CHECK_DIR(){
+	NAME=$2
+	VALUE=$3
+	TRY=$1
+	echo -n "Checking $NAME ..."
+	if [ -d $VALUE ];then
+		echo "yes"
+		if [ "$TRY" = "try" ];then
+			echo -n "try to read $NAME ..."
+			ls $VALUE 2>/dev/null 1>/dev/null
+			if [ $? -eq 0 ];then
+				echo "done"
+			else
+				echo "fail"
+				exit 1
+			fi
+			echo -n "try to write $NAME ..."
+			touch $VALUE/a 2>/dev/null 1>/dev/null
+			if [ $? -eq 0 ];then
+				echo "done"
+				rm $VALUE/a
+			else
+				echo "fail"
+				exit 1
+			fi
+			return 0;
+		fi
+	else
+		echo "no"
+		if [ "$TRY" = "try" ];then
+			echo -n "try to create $NAME ..."
+			mkdir -p $VALUE 2>/dev/null 1>/dev/null
+			if [ $? -eq 0 ];then
+				echo "done"
+				rm -rf $VALUE >/dev/null
+				return 0;
+			else
+				echo "fail"
+				exit 1
+			fi
+		else
+			exit 1
+		fi
+		
+	fi
+}
+
+CONF_DIR(){
+	CONF_CHECK_DIR try PREFIX $PREFIX
+	CONF_CHECK_DIR no-try SYSROOT $SYSROOT
+	CONF_CHECK_DIR try CROSS $CROSS
+	CONF_CHECK_DIR try SRCDIR $SRCDIR
+	CONF_CHECK_DIR try TMPDIR $TMPDIR
+	return 0;
+}
+
+CONF_WORK(){	
+	CONF_DEBIAN
+	CONF_ROOT
+	CONF_SHELL_BASH
+	CONF_SH_BASH
+	CONF_DIR
+	CONF_KPM
+	CONF_YACC
+	CONF_YACC_BISON
+	CONF_AWK
+	CONF_AWK_GAWK
+	CONF_MAKEINFO
+	CONF_PERL
+	CONF_PATCH
+	CONF_MAKE
+	CONF_M4
+	CONF_LDD
+	CONF_GCC
+	CONF_GXX
+	CONF_LIBGCC
+	CONF_LIBGCC64
+	CONF_LANG
+}
+
+CONF_PREINIT
+PARSE_ARGS "$@"
+CONF_WORK
 
 
