@@ -597,7 +597,7 @@ cross-gcc-stage2: cross-gcc-stage1 build.2nd
 	@./build.2nd
 	@touch cross-gcc-stage2
 clean:
-	@rm -rf makefile build.1st build.2nd cross-gcc-stage1 cross-gcc-stage2
+	@rm -rf makefile envsetup.sh build.1st build.2nd cross-gcc-stage1 cross-gcc-stage2
 EOF
 	echo "done"
 }
