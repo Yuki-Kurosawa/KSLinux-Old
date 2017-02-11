@@ -571,6 +571,9 @@ MAKE=make
 MFLAGS=-j4
 export LFS LC_ALL LFS_TGT PATH MAKE MFLAGS
 '>>envsetup.sh
+./src.in
+cat src>> envsetup.sh
+rm src
 chmod a+x envsetup.sh
 	echo "done"
 }
