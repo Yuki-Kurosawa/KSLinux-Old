@@ -17,8 +17,7 @@ libstdc++ 5.3.0 (part of gcc 5.3.0)<br/>
 </font><br/>
 2. using these commands to check your enviroment:<br/>
 ./configure<br/>
-it will create config.detail if check test complete successfully<br/>
-3. Update Variables in build.1st.sh<br/>
-4. Run following command to build<br/>
-source build.1st.sh<br/>
+it will create makefile if check test complete successfully<br/>
+3. Run following command to build<br/>
+make<br/>
 <font color="red">**ERROR: DO NOT RUN AS ROOT**</font>
