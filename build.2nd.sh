@@ -40,7 +40,6 @@ rm -v dummy.c a.out
 cd ../../
 rm -rf $GLIBC_SRC
 
-
 # build Libstdc++
 cd $BUILDTMP
 tar xvf $SRCROOT/$GCC_TAR

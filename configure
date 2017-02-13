@@ -589,7 +589,7 @@ build.1st: build.1st.sh
 	@chmod a+x build.1st
 build.2nd: build.2nd.sh
 	@cat envsetup.sh >build.2nd
-	@cat build.1st.sh >>build.2nd
+	@cat build.2nd.sh >>build.2nd
 	@sed "11,12d" build.2nd > build.2nd.so
 	@mv build.2nd.so build.2nd
 	@chmod a+x build.2nd

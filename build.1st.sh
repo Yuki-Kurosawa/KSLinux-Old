@@ -12,7 +12,6 @@ cd $BINUTILS_SRC
 mkdir -v build
 cd build
 
-
 ../configure --prefix=$CROSS            \
              --with-sysroot=$LFS        \
              --with-lib-path=$CROSS/lib \
