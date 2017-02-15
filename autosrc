@@ -12,7 +12,7 @@ else{
 	}
 	open OUT,'>',$out or die "OPEN FILE $out FAILED\n";
 	while ($line=<FILE>){
-		if($line eq '\n'){			
+		if($line eq "\n"){			
 		}
 		elsif (substr($line,0,1) eq "#"){
 		}
