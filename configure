@@ -416,7 +416,7 @@ CONF_OS(){
 				return 0
 			else
 				echo "KSLinux can only build on deb-based systems,"
-				echo "kpm-based systems or yum-dnf-based system,"
+				echo "kpm-based systems or yum-dnf-based systems,"
 				echo "you can run following command to skip this check:"
 				echo "export UNSUPPORTED_SYSTEM=1"
 				exit 1
