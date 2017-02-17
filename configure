@@ -580,28 +580,7 @@ chmod a+x envsetup.sh
 
 CONF_OUTPUT_MAKEFILE(){
 	echo -n "Creating Makefile ... "
-	cat > makefile <<EOF
-all: cross-gcc-stage1 cross-gcc-stage2
-envsetup.sh: 
-build.1st: build.1st.sh
-	@cat envsetup.sh >build.1st
-	@cat build.1st.sh >>build.1st
-	@chmod a+x build.1st
-build.2nd: build.2nd.sh
-	@cat envsetup.sh >build.2nd
-	@cat build.2nd.sh >>build.2nd
-	@sed "11,12d" build.2nd > build.2nd.so
-	@mv build.2nd.so build.2nd
-	@chmod a+x build.2nd
-cross-gcc-stage1: build.1st
-	@./build.1st
-	@touch cross-gcc-stage1
-cross-gcc-stage2: cross-gcc-stage1 build.2nd 
-	@./build.2nd
-	@touch cross-gcc-stage2
-clean:
-	@rm -rf makefile envsetup.sh build.1st build.2nd cross-gcc-stage1 cross-gcc-stage2
-EOF
+	./makefile.in
 	echo "done"
 }
 
