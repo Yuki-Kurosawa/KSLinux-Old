@@ -23,9 +23,14 @@ CONF_SH_BASH(){
 	if [ "x$SH" = "xbash" ];then
 		return 0
 	else
-		echo "Please use bash as sh"
-		echo "Please run following command with root and select No:"
-		echo "dpkg-reconfigure $SH"
+		echo "Please use bash as sh"				
+		if [ "$OPM" = "yum" ] || [ "$OPM" = "zypper" ];then
+			echo "Please run following command with root:"
+			echo "rm -rf /bin/sh && ln -s /bin/bash /bin/sh"
+		else
+			echo "Please run following command with root and select No:"
+			echo "$OPM-reconfigure $SH"
+		fi
 		exit 1
 	fi
 }
@@ -39,7 +44,7 @@ CONF_YACC(){
 	else
 		echo "not found"
 		echo "Please run following command with root:"
-		echo "apt install bison -y"
+		echo "$OPM install bison -y"
 		exit 1
 	fi
 }
@@ -62,7 +67,7 @@ CONF_YACC_BISON(){
 		else
 			echo no
 			echo "Please run following command with root:"
-			echo "apt install bison -y"
+			echo "$OPM install bison -y"
 			exit 1
 		fi
 	fi
@@ -77,7 +82,7 @@ CONF_AWK(){
 	else
 		echo "not found"
 		echo "Please run following command with root:"
-		echo "apt install gawk -y"
+		echo "$OPM install gawk -y"
 		exit 1
 	fi
 }
@@ -100,7 +105,7 @@ CONF_AWK_GAWK(){
 		else
 			echo no
 			echo "Please run following command with root:"
-			echo "apt install gawk -y"
+			echo "$OPM install gawk -y"
 			exit 1
 		fi
 	fi
@@ -122,7 +127,7 @@ CONF_MAKEINFO(){
 	else
 		echo "not found"
 		echo "Please run following command with root:"
-		echo "apt install texinfo -y"
+		echo "$OPM install texinfo -y"
 		exit 1
 	fi
 }
@@ -136,7 +141,7 @@ CONF_PERL(){
 	else
 		echo "not found"
 		echo "Please run following command with root:"
-		echo "apt install perl-base -y"
+		echo "$OPM install perl-base -y"
 		exit 1
 	fi
 }
@@ -150,7 +155,7 @@ CONF_PATCH(){
 	else
 		echo "not found"
 		echo "Please run following command with root:"
-		echo "apt install patch -y"
+		echo "$OPM install patch -y"
 		exit 1
 	fi
 }
@@ -164,7 +169,7 @@ CONF_MAKE(){
 	else
 		echo "not found"
 		echo "Please run following command with root:"
-		echo "apt install make -y"
+		echo "$OPM install make -y"
 		exit 1
 	fi
 }
@@ -178,7 +183,7 @@ CONF_M4(){
 	else
 		echo "not found"
 		echo "Please run following command with root:"
-		echo "apt install m4 -y"
+		echo "$OPM install m4 -y"
 		exit 1
 	fi
 }
@@ -192,7 +197,11 @@ CONF_LDD(){
 	else
 		echo "not found"
 		echo "Please run following command with root:"
-		echo "apt install libc-bin -y"
+		if [ "$OPM" = "yum" ] || [ "$OPM" = "zypper" ];then
+			echo "$OPM install glibc-devel -y"
+		else
+			echo "$OPM install libc-bin -y"
+		fi
 		exit 1
 	fi
 }
@@ -225,7 +234,7 @@ CONF_GCC(){
 	else
 		echo "not found"
 		echo "Please run following command with root:"
-		echo "apt install gcc -y"
+		echo "$OPM install gcc -y"
 		exit 1
 	fi
 }
@@ -240,7 +249,7 @@ CONF_GXX(){
 	else
 		echo "not found"
 		echo "Please run following command with root:"
-		echo "apt install g++ -y"
+		echo "$OPM install g++ -y"
 		exit 1
 	fi
 
@@ -281,8 +290,13 @@ CONF_LIBGCC(){
 	else
 		echo "libgmp, libmpc and libmpfr must be all present or all non-exists"
 		echo "please run following command to install all or remove all:"
-		echo "install) apt install libgmp-dev libmpfr-dev libmpc-dev -y"
-		echo "remove)  apt purge libgmp-dev libmpfr-dev libmpc-dev -y"
+		if [ "$OPM" = "yum" ] || [ "$OPM" = "zypper" ];then
+			echo "install) $OPM install gmp-devel mpfr-devel mpc-devel -y"
+			echo "remove)  $OPM erase gmp-devel mpfr-devel mpc-devel -y"
+		else
+			echo "install) $OPM install libgmp-dev libmpfr-dev libmpc-dev -y"
+			echo "remove)  $OPM purge libgmp-dev libmpfr-dev libmpc-dev -y"
+		fi
 		exit 1
 	fi
 }
@@ -322,8 +336,13 @@ CONF_LIBGCC64(){
 	else
 		echo "libgmp, libmpc and libmpfr must be all present or all non-exists"
 		echo "please run following command to install all or remove all:"
-		echo "install) apt install libgmp-dev libmpfr-dev libmpc-dev -y"
-		echo "remove)  apt purge libgmp-dev libmpfr-dev libmpc-dev -y"
+		if [ "$OPM" = "yum" ] || [ "$OPM" = "zypper" ];then
+			echo "install) $OPM install gmp-devel mpfr-devel mpc-devel -y"
+			echo "remove)  $OPM erase gmp-devel mpfr-devel mpc-devel -y"
+		else
+			echo "install) $OPM install libgmp-dev libmpfr-dev libmpc-dev -y"
+			echo "remove)  $OPM purge libgmp-dev libmpfr-dev libmpc-dev -y"
+		fi
 		exit 1
 	fi
 }
@@ -347,40 +366,59 @@ CONF_ROOT(){
 	fi
 }
 
-CONF_DEBIAN(){
+CONF_OS(){
 	DEBIAN=0
 	UBUNTU=0
 	KALI=0
 	KS=0
 	DEEPIN=0
-	
+	OPM=empty
+	RPM=0
+	SUSE=0
+
 	echo -n "Checking OS Type ... "
 	OSTYPE=$(cat /etc/issue|sed -rne "s/ .*//p")
+	if [ "$OSTYPE" = "Red" ];then
+		OSTYPE=RHEL
+	fi
 	echo $OSTYPE
 	case $OSTYPE in
 		Ubuntu)
 			UBUNTU=1
+			OPM=dpkg
 			;;
 		Debian)
 			DEBIAN=1
+			OPM=dpkg
 			;;
 		Kali)
 			KALI=1
+			OPM=dpkg
 			;;
 		Deepin)
 			DEEPIN=1
+			OPM=dpkg
 			;;
 		KSLinux|Kurosawa)
 			KS=1
+			OPM=kpm
+			;;
+		RHEL|Fedora|CentOS)
+			RPM=1
+			OPM=yum
+			;;
+		SUSE|openSUSE)
+			SUSE=1
+			OPM=zypper
 			;;
 		*)			
-			if [ $FORCE_NO_DEB_KPM_SYSTEM ] && [ $FORCE_NO_DEB_KPM_SYSTEM -eq 1 ];then
+			if [ $UNSUPPORTED_SYSTEM ] && [ $UNSUPPORTED_SYSTEM -eq 1 ];then
 				return 0
 			else
-				echo "KSLinux can only build on deb-based systems or"
-				echo "kpm-based systems,you can run following command"
-				echo "to skip this check:"
-				echo "export FORCE_NO_DEB_KPM_SYSTEM=1"
+				echo "KSLinux can only build on deb-based systems,"
+				echo "kpm-based systems or yum-dnf-based system,"
+				echo "you can run following command to skip this check:"
+				echo "export UNSUPPORTED_SYSTEM=1"
 				exit 1
 			fi
 			;;			
@@ -585,7 +623,7 @@ CONF_OUTPUT_MAKEFILE(){
 }
 
 CONF_WORK(){	
-	CONF_DEBIAN
+	CONF_OS
 	CONF_ROOT
 	CONF_SHELL_BASH
 	CONF_SH_BASH
