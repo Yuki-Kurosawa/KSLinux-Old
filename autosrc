@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 
 if ($ARGV[0] eq ""){
-	print "Kurosawa autosrc ver 1.0";
-	print "Usage: autosrc [in] [out]";
+	print "Kurosawa autosrc ver 1.0\n";
+	print "Usage: autosrc [in] [out]\n\n";
 }
 else{
 	open FILE,'<',"$ARGV[0]" or die "NO SUCH FILE $ARGV[0] !\n";
