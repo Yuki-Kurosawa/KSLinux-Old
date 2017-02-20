@@ -378,7 +378,7 @@ CONF_OS(){
 
 	echo -n "Checking OS Type ... "
 	OSTYPE=$(cat /etc/issue|sed -rne "s/ .*//p")
-	if [ "$OSTYPE" = "Redhat" ];then
+	if [ "$OSTYPE" = "Redhat" ] || [ "$OSTYPE" = "Red" ];then
 		OSTYPE=RHEL
 	fi
 	echo $OSTYPE
