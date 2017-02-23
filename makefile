@@ -1,4 +1,3 @@
-#! ./automake
 
 .PHONY: all clean
 

@@ -1,4 +1,26 @@
-#! ./autosrc
+#!/bin/bash
+
+export SRCROOT=/tool/7.9
+export KS=/ks/ramfs
+export BUILDTMP=/tool/tmp
+export CROSS=/tool/cross
+export LIBPARENT=/tool
+export SCRIPTROOT=/home/ruby/git/KSLinux
+
+# set env var
+rm -rf {$KS,$BUILDTMP,$CROSS} 2>/dev/null
+mkdir -p {$KS,$BUILDTMP,$CROSS} 2>/dev/null
+
+set +h
+umask 022
+LFS=$KS
+LC_ALL=POSIX
+LFS_TGT=x86_64-ks-linux-gnu
+
+PATH=$CROSS/bin:/bin:/usr/bin
+MAKE=make
+MFLAGS=-j4
+export LFS LC_ALL LFS_TGT PATH MAKE MFLAGS
 
 BINUTILS_TAR=binutils-2.26.tar.bz2
 BINUTILS_SRC=binutils-2.26
@@ -22,4 +44,3 @@ EXPECT_TAR=expect5.45.tar.gz
 EXPECT_SRC=expect5.45
 DEJAGNU_TAR=dejagnu-1.5.3.tar.gz
 DEJAGNU_SRC=dejagnu-1.5.3
-

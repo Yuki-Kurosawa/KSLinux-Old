@@ -1,0 +1,85 @@
+#!/bin/bash
+
+export SRCROOT=/tool/7.9
+export KS=/ks/ramfs
+export BUILDTMP=/tool/tmp
+export CROSS=/tool/cross
+export LIBPARENT=/tool
+export SCRIPTROOT=/home/ruby/git/KSLinux
+
+# set env var
+
+set +h
+umask 022
+LFS=$KS
+LC_ALL=POSIX
+LFS_TGT=x86_64-ks-linux-gnu
+
+PATH=$CROSS/bin:/bin:/usr/bin
+MAKE=make
+MFLAGS=-j4
+export LFS LC_ALL LFS_TGT PATH MAKE MFLAGS
+
+BINUTILS_TAR=binutils-2.26.tar.bz2
+BINUTILS_SRC=binutils-2.26
+GCC_TAR=gcc-5.3.0.tar.bz2
+GCC_SRC=gcc-5.3.0
+MPFR_TAR=mpfr-3.1.3.tar.xz
+MPFR_SRC=mpfr-3.1.3
+GMP_TAR=gmp-6.1.0.tar.xz
+GMP_SRC=gmp-6.1.0
+MPC_TAR=mpc-1.0.3.tar.gz
+MPC_SRC=mpc-1.0.3
+KERNEL_TAR=linux-4.4.2.tar.xz
+KERNEL_SRC=linux-4.4.2
+GLIBC_TAR=glibc-2.23.tar.xz
+GLIBC_SRC=glibc-2.23
+TCL_TAR=tcl-core8.6.4-src.tar.gz
+TCL_SRC=tcl8.6.4
+TCL_BIN=tclsh8.6
+TCL_LIB=libtcl8.6.so
+EXPECT_TAR=expect5.45.tar.gz
+EXPECT_SRC=expect5.45
+DEJAGNU_TAR=dejagnu-1.5.3.tar.gz
+DEJAGNU_SRC=dejagnu-1.5.3
+
+# install Tcl-core
+cd $BUILDTMP
+tar xvf $SRCROOT/$TCL_TAR
+cd $TCL_SRC
+ls
+cd unix
+./configure --prefix=$CROSS
+$MAKE $MFLAGS
+TZ=UTC $MAKE test
+$MAKE install
+chmod -v u+w $CROSS/lib/$TCL_LIB
+$MAKE install-private-headers
+ln -sv $TCL_BIN $CROSS/bin/tclsh
+cd ../..
+rm -rf $TCL_SRC
+
+# install expect
+cd $BUILDTMP
+tar xvf $SRCROOT/$EXPECT_TAR
+cd $EXPECT_SRC
+cp -v configure{,.orig}
+sed 's:/usr/local/bin:/bin:' configure.orig > configure
+./configure --prefix=$CROSS       \
+            --with-tcl=$CROSS/lib \
+            --with-tclinclude=$CROSS/include
+$MAKE $MFLAGS
+$MAKE test
+$MAKE SCRIPTS="" install
+cd ..
+rm -rf $EXPECT_SRC
+
+# install DejaGNU
+cd $BUILDTMP
+tar xvf $SRCROOT/$DEJAGNU_TAR
+cd $DEJAGNU_SRC
+./configure --prefix=$CROSS
+$MAKE install
+$MAKE check
+cd ..
+rm -rf $DEJAGNU_SRC
