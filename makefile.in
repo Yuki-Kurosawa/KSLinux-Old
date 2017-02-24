@@ -35,8 +35,9 @@ cross-gcc-stage2: cross-gcc-stage1 build.2nd
 	@./build.2nd
 	@touch cross-gcc-stage2
 
-tmp-system: build.tmp
+tmp-system: cross-gcc-stage2 build.tmp
 	@./build.tmp
+	@touch tmp-system
 
 clean:
 	@rm -rf makefile envsetup.sh build.1st build.2nd cross-gcc-stage1 cross-gcc-stage2 build.tmp \
