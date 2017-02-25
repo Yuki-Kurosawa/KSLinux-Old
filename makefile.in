@@ -45,6 +45,7 @@ clean: distclean
 
 distclean:
 	@cat envsetup.sh > clean.sh
-	@echo 'rm -rf $KS' >> clean.sh
+	@cat clean.in >> clean.sh
 	@chmod a+x clean.sh
+	@./clean.sh
 	@rm clean.sh
