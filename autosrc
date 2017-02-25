@@ -1,0 +1,26 @@
+#!/usr/bin/perl
+
+if ($ARGV[0] eq ""){
+	print "Kurosawa autosrc ver 1.0\n";
+	print "Usage: autosrc [in] [out]\n\n";
+}
+else{
+	open FILE,'<',"$ARGV[0]" or die "NO SUCH FILE $ARGV[0] !\n";
+	$out=$ARGV[1];
+	if($out eq ""){
+		$out="src";
+	}
+	open OUT,'>',$out or die "OPEN FILE $out FAILED\n";
+	while ($line=<FILE>){
+		if($line eq "\n"){			
+		}
+		elsif (substr($line,0,1) eq "#"){
+		}
+		else{
+			print OUT $line;
+		}
+	}
+	close FILE;
+	close OUT;
+	system "chmod 777 $out";
+}

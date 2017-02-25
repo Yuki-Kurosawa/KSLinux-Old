@@ -1,40 +1,19 @@
-#!/bin/bash
-
-#export SRCROOT=/tool/7.9
-#export KS=/ks/ramfs
-#export BUILDTMP=/tool/tmp
-#export CROSS=/tool/cross
-
-# set env var
-#rm -rf {$KS,$BUILDTMP,$CROSS} 2>/dev/null
-#mkdir -p {$KS,$BUILDTMP,$CROSS} 2>/dev/null
-
-#set +h
-#umask 022
-#LFS=$KS
-#LC_ALL=POSIX
-#LFS_TGT=$(uname -m)-ks-linux-gnu
-#PATH=$CROSS/bin:/bin:/usr/bin
-#MAKE=make
-#MFLAGS=-j4
-#export LFS LC_ALL LFS_TGT PATH MAKE MFLAGS
-
 
 # build tmp system
 cd $BUILDTMP
 
 # install kernel headers
-tar xvf $SRCROOT/linux-4.4.2.tar.xz
-cd linux-4.4.2
+tar xvf $SRCROOT/$KERNEL_TAR
+cd $KERNEL_SRC
 make mrproper
 make INSTALL_HDR_PATH=dest headers_install
 cp -rv dest/include/* $CROSS/include
 cd ..
-rm -rf linux-4.4.2
+rm -rf $KERNEL_SRC
 
 # install glibc
-tar xvf $SRCROOT/glibc-2.23.tar.xz
-cd glibc-2.23
+tar xvf $SRCROOT/$GLIBC_TAR
+cd $GLIBC_SRC
 mkdir -v build
 cd       build
 
@@ -59,20 +38,19 @@ ldd a.out
 file a.out
 rm -v dummy.c a.out
 cd ../../
-rm -rf glibc-2.23
-
+rm -rf $GLIBC_SRC
 
 # build Libstdc++
 cd $BUILDTMP
-tar xvf $SRCROOT/gcc-5.3.0.tar.bz2
-cd gcc-5.3.0
+tar xvf $SRCROOT/$GCC_TAR
+cd $GCC_SRC
 
-tar -xf $SRCROOT/mpfr-3.1.3.tar.xz
-mv -v mpfr-3.1.3 mpfr
-tar -xf $SRCROOT/gmp-6.1.0.tar.xz
-mv -v gmp-6.1.0 gmp
-tar -xf $SRCROOT/mpc-1.0.3.tar.gz
-mv -v mpc-1.0.3 mpc
+tar -xf $SRCROOT/$MPFR_TAR
+mv -v $MPFR_SRC mpfr
+tar -xf $SRCROOT/$GMP_TAR
+mv -v $GMP_SRC gmp
+tar -xf $SRCROOT/$MPC_TAR
+mv -v $MPC_SRC mpc
 
 for file in \
  $(find gcc/config -name linux64.h -o -name linux.h -o -name sysv4.h)
@@ -104,12 +82,12 @@ $MAKE $MFLAGS
 $MAKE $MFLAGS install
 
 cd ../../
-rm -rf  gcc-5.3.0
+rm -rf  $GCC_SRC
 
 # build binutils-2
 cd $BUILDTMP
-tar xvf $SRCROOT/binutils-2.26.tar.bz2
-cd binutils-2.26
+tar xvf $SRCROOT/$BINUTILS_TAR
+cd $BINUTILS_SRC
 mkdir -v build
 cd build
 
@@ -128,22 +106,23 @@ make -C ld clean
 make -C ld LIB_PATH=/usr/lib:/lib
 cp -v ld/ld-new $CROSS/bin
 cd ../../
-rm -rf binutils-2.26
+rm -rf $BINUTILS_SRC
 
 # build gcc-2
 cd $BUILDTMP
-tar xvf $SRCROOT/gcc-5.3.0.tar.bz2
-cd gcc-5.3.0
+tar xvf $SRCROOT/$GCC_TAR
+cd $GCC_SRC
 
 cat gcc/limitx.h gcc/glimits.h gcc/limity.h > \
   `dirname $($LFS_TGT-gcc -print-libgcc-file-name)`/include-fixed/limits.h
 
-tar -xf $SRCROOT/mpfr-3.1.3.tar.xz
-mv -v mpfr-3.1.3 mpfr
-tar -xf $SRCROOT/gmp-6.1.0.tar.xz
-mv -v gmp-6.1.0 gmp
-tar -xf $SRCROOT/mpc-1.0.3.tar.gz
-mv -v mpc-1.0.3 mpc
+
+tar -xf $SRCROOT/$MPFR_TAR
+mv -v $MPFR_SRC mpfr
+tar -xf $SRCROOT/$GMP_TAR
+mv -v $GMP_SRC gmp
+tar -xf $SRCROOT/$MPC_TAR
+mv -v $MPC_SRC mpc
 
 for file in \
  $(find gcc/config -name linux64.h -o -name linux.h -o -name sysv4.h)
@@ -187,6 +166,6 @@ ldd a.out
 file a.out
 rm -v dummy.c a.out
 cd ../../
-rm -rf  gcc-5.3.0
+rm -rf  $GCC_SRC
 
 
