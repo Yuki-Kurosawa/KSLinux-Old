@@ -1,8 +1,8 @@
 #! ./automake
 
-.PHONY: all clean
+.PHONY: all clean distclean
 
-all: cross-gcc-stage1 cross-gcc-stage2
+all: cross-gcc-stage1 cross-gcc-stage2 tmp-system
 
 envsetup.sh: 
 	@echo "No envsetup.sh here"
@@ -39,6 +39,12 @@ tmp-system: cross-gcc-stage2 build.tmp
 	@./build.tmp
 	@touch tmp-system
 
-clean:
+clean: distclean
 	@rm -rf makefile envsetup.sh build.1st build.2nd cross-gcc-stage1 cross-gcc-stage2 build.tmp \
 	tmp-system
+
+distclean:
+	@cat envsetup.sh > clean.sh
+	@echo 'rm -rf $KS' >> clean.sh
+	@chmod a+x clean.sh
+	@rm clean.sh
