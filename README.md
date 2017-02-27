@@ -3,15 +3,11 @@ A Linux Distribution
 
 Build Information
 =================================
-1. Download Source code for these packages:<br/>
-binutils 2.26<br/>
-gcc 5.3.0<br/>
-mpfr 3.1.3<br/>
-gmp 6.1.0<br/>
-mpc 1.0.3<br/>
-linux 4.4.2<br/>
-glibc 2.23<br/>
-libstdc++ 5.3.0 (part of gcc 5.3.0)<br/>
+1. Download Source code from:<br/>
+https://www.linuxfromscratch.org/lfs/view/stable/<br/>
+https://www.linuxfromscratch.org/blfs/view/stable/<br/>
+http://www.gnu.org/<br/>
+http://packages.debian.org/<br/>
 <font color="blue">
 **WARNING: Other version not tested**
 </font><br/>
