@@ -26,10 +26,10 @@ But KSLinux is not based on debian or ubuntu series.<br/>
 Build Information
 =================================
 1. Download Source code from:<br/>
-https://www.linuxfromscratch.org/lfs/view/stable/<br/>
-https://www.linuxfromscratch.org/blfs/view/stable/<br/>
-http://www.gnu.org/<br/>
-http://packages.debian.org/<br/>
+http://www.linuxfromscratch.org/lfs/view/stable/<br/>
+http://www.linuxfromscratch.org/blfs/view/stable/<br/>
+https://www.gnu.org/<br/>
+https://packages.debian.org/<br/>
 <font color="blue">
 **WARNING: Other version not tested**
 </font><br/>
