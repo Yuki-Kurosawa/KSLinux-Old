@@ -1,5 +1,28 @@
 # KSLinux
-A Linux Distribution
+A Linux Distribution Based on GNU/Linux with Following extra packages:<br/>
+Kurosawa Package Manager (KPM) [conflicts: dpkg]<br/>
+Kuroasawa Package Toolset (KPT) [conflicts: apt]<br/>
+
+How-tos:<br/>
+KPM
+=========
+Install Packages: kpm -i xxx.kpm<br/>
+Remove Packages: kpm -r xxx<br/>
+Purge Packages: kpm -p xxx<br/>
+Build Packages via kpm-pkg: kpm-pkg -b /opt/xxx xxx.kpm<br/>
+<br/>
+KPT
+=========
+Update Package List: kpt update<br/>
+Install Packages: kpt install xxx<br/>
+Remove Packages: kpt remove xxx<br/>
+Purge Packages: kpm purge xxx<br/>
+Update Packages: kpm upgrade xxx<br/>
+
+Note for conflicts
+=======================
+You can use dpkg and apt as usual like debian or ubuntu.<br/>
+But KSLinux is not based on debian or ubuntu series.<br/>
 
 Build Information
 =================================
@@ -16,5 +39,9 @@ http://packages.debian.org/<br/>
 it will create makefile if check test complete successfully<br/>
 3. Run following command to build<br/>
 make<br/>
-<font color="red">**ERROR: DO NOT RUN AS ROOT**</font>
-<font color="blue">**NOTE: KSLinux has not been compiled completely, please don't use KSLinux in production environments.**</font>
+<font color="red">**ERROR: DO NOT RUN AS ROOT**</font><br/>
+<font color="blue">**NOTE: KSLinux has not been compiled completely, please don't use KSLinux in production environments.**</font><br/>
+<br/>
+Current Status:
+Last Compiled: temporary system for building release packages (tmp_system)
+Next Compile: zlib1g for temporary system (tmp_system)
