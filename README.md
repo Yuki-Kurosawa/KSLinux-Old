@@ -3,7 +3,6 @@ A Linux Distribution Based on GNU/Linux with Following extra packages:<br/>
 Kurosawa Package Manager (KPM) [conflicts: dpkg]<br/>
 Kuroasawa Package Toolset (KPT) [conflicts: apt]<br/>
 
-How-tos:<br/>
 KPM
 =========
 Install Packages: kpm -i xxx.kpm<br/>
