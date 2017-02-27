@@ -17,3 +17,4 @@ it will create makefile if check test complete successfully<br/>
 3. Run following command to build<br/>
 make<br/>
 <font color="red">**ERROR: DO NOT RUN AS ROOT**</font>
+<font color="blue">**NOTE: KSLinux has not been compiled completely, please don't use KSLinux in production environments.**</font>
