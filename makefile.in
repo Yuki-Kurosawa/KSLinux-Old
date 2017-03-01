@@ -1,6 +1,6 @@
 #! ./automake
 
-.PHONY: all clean distclean
+.PHONY: all clean distclean permisson
 
 all: cross-gcc-stage1 cross-gcc-stage2 tmp-system
 
@@ -38,6 +38,15 @@ cross-gcc-stage2: cross-gcc-stage1 build.2nd
 tmp-system: cross-gcc-stage2 build.tmp
 	@./build.tmp
 	@touch tmp-system
+
+permission: permission.in
+	@./autosrc permission.in permisson.out
+	@chmod a+x permission.out
+	@cat envsetup.sh > fixperm.sh
+	@cat permission.out >> fixperm.sh
+	@chmod a+x fixperm.sh
+	@rm permission.out
+	@./fixperm.sh
 
 clean: distclean
 	@rm -rf makefile envsetup.sh build.1st build.2nd cross-gcc-stage1 cross-gcc-stage2 build.tmp \

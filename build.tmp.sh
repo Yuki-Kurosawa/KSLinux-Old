@@ -268,14 +268,6 @@ $MAKE install
 cd ..
 rm -rf $XZ_SRC
 
-# strip mans and documents
-rm -rvf $CROSS/{,share}/{info,man,doc}
-
-# change ownership
-rm -rf $KS$CROSS
-mkdir $KS$CROSS
-cp -pvR $CROSS/* $KS$CROSS
-sudo chown -Rv root:root $KS$LIBPARENT
 
 
 
