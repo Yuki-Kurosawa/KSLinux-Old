@@ -450,6 +450,7 @@ CONF_KPM(){
 }
 
 CONF_LANG(){
+	echo -n 'Checking Language Variables are set ... '
 	if [ $PLANG -eq 1 ] || [ $PLANGUAGE -eq 1 ];then
 		echo "yes"
 		echo "You may meet some error while building some"
