@@ -64,4 +64,7 @@ UTIL_LINUX_TAR=util-linux-2.27.1.tar.xz
 UTIL_LINUX_SRC=util-linux-2.27.1
 XZ_TAR=xz-5.2.2.tar.xz
 XZ_SRC=xz-5.2.2
+KPM_TAR=kpm-1.18.4.tar.xz
+KPM_SRC=kpm-1.18.4
+
 
