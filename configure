@@ -581,39 +581,12 @@ CONF_DIR(){
 
 CONF_OUTPUT_ENV(){
 	echo -n "Creating envsetup.sh ... "
-	cat > envsetup.sh <<EOF
-#!/bin/bash
-
-export SRCROOT=$SRCDIR
-export KS=$PREFIX
-export BUILDTMP=$TMPDIR
-export CROSS=$CROSS
-export LIBPARENT=$SYSROOT
-export SCRIPTROOT=$(pwd)
-EOF
-echo '
-# set env var
-rm -rf {$KS,$BUILDTMP,$CROSS} 2>/dev/null
-mkdir -p {$KS,$BUILDTMP,$CROSS} 2>/dev/null
-
-set +h
-umask 022
-LFS=$KS
-LC_ALL=POSIX' >> envsetup.sh
-
-cat >> envsetup.sh <<EOF
-LFS_TGT=$TARGET
-EOF
-echo '
-PATH=$CROSS/bin:/bin:/usr/bin
-MAKE=make
-MFLAGS=-j4
-export LFS LC_ALL LFS_TGT PATH MAKE MFLAGS
-'>>envsetup.sh
-./src.in
-cat src>> envsetup.sh
-rm src
-chmod a+x envsetup.sh
+	export pwd="$(pwd)"
+	sed -e "s!@pwd@!$pwd!g" -e "s/@TARGET@/$TARGET/g" envsetup.sh.in > envsetup.sh
+	./src.in
+	cat src>> envsetup.sh
+	rm src
+	chmod a+x envsetup.sh
 	echo "done"
 }
 
