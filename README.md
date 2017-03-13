@@ -1,17 +1,20 @@
 # KSLinux
+
 A Linux Distribution Based on GNU/Linux with Following extra packages:<br/>
 Kurosawa Package Manager (KPM) [conflicts: dpkg]<br/>
 Kuroasawa Package Toolset (KPT) [conflicts: apt]<br/>
 
 KPM
-=========
+
+---------
 Install Packages: kpm -i xxx.kpm<br/>
 Remove Packages: kpm -r xxx<br/>
 Purge Packages: kpm -p xxx<br/>
 Build Packages via kpm-pkg: kpm-pkg -b /opt/xxx xxx.kpm<br/>
 <br/>
+
 KPT
-=========
+--------
 Update Package List: kpt update<br/>
 Install Packages: kpt install xxx<br/>
 Remove Packages: kpt remove xxx<br/>
@@ -19,12 +22,14 @@ Purge Packages: kpm purge xxx<br/>
 Update Packages: kpm upgrade xxx<br/>
 
 Note for conflicts
-=======================
+
+---------
 You can use dpkg and apt as usual like debian or ubuntu.<br/>
 But KSLinux is not based on debian or ubuntu series.<br/>
 
 Build Information
-=================================
+
+---------
 1. Download Source code from:<br/>
 http://www.linuxfromscratch.org/lfs/view/stable/<br/>
 http://www.linuxfromscratch.org/blfs/view/stable/<br/>
