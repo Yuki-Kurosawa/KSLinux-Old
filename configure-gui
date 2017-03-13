@@ -399,32 +399,49 @@ CONF_LIBGCC(){
 	GMP=0
 	MPFR=0
 	MPC=0
-	echo -n "Checking libgmp.la 32bit Library ... "	
+	m1="Checking libgmp.la 32bit Library ... "	
+	SHOW_MIXPROGRESS "$m1" 7
+	OK=$[$OK+33]
 	if [ -f $LIBGMP ];then
-		echo $LIBGMP
+		r1=Found
+		SHOW_MIXPROGRESS "$m1" "$r1"
 	else
-		echo "not found"
+		r1="Not Found"
+		SHOW_MIXPROGRESS "$m1" "$r1"
 		GMP=1
 	fi
-	echo -n "Checking libmpfr.la 32bit Library ... "	
+	m2="Checking libmpfr.la 32bit Library ... "
+	SHOW_MIXPROGRESS "$m1" "$r1" "$m2" 7
+	OK=$[$OK+33]
 	if [ -f $LIBMPFR ];then
-		echo $LIBMPFR
+		r2=Found
+		SHOW_MIXPROGRESS "$m1" "$r1" "$m2" "$r2"
 	else
-		echo "not found"
+		r2="Not Found"
+		SHOW_MIXPROGRESS "$m1" "$r1" "$m2" "$r2"
 		MPFR=1
 	fi
-	echo -n "Checking libmpc.la 32bit Library ... "	
+	m3="Checking libmpc.la 32bit Library ... "
+	SHOW_MIXPROGRESS "$m1" "$r1" "$m2" "$r2" "$m3" 7
+	OK=$[$OK+33]	
 	if [ -f $LIBMPC ];then
-		echo $LIBMPC
+		r3=Found
+		SHOW_MIXPROGRESS "$m1" "$r1" "$m2" "$r2" "$m3" "$r3"
 	else
-		echo "not found"
+		r3="Not Found"
+		SHOW_MIXPROGRESS "$m1" "$r1" "$m2" "$r2" "$m3" "$r3"
 		MPC=1
 	fi
 	if [ $MPC -eq 0 ] && [ $MPFR -eq 0 ] && [ $GMP -eq 0 ];then
+		OK=$[$OK+1]
+		SHOW_MIXPROGRESS "$m1" "$r1" "$m2" "$r2" "$m3" "$r3"
 		return 0
 	elif [ $MPC -eq 1 ] && [ $MPFR -eq 1 ] && [ $GMP -eq 1 ];then
+		OK=$[$OK+1]
+		SHOW_MIXPROGRESS "$m1" "$r1" "$m2" "$r2" "$m3" "$r3"
 		return 0
 	else
+		err(){
 		echo "libgmp, libmpc and libmpfr must be all present or all non-exists"
 		echo "please run following command to install all or remove all:"
 		if [ "$OPM" = "yum" ] || [ "$OPM" = "zypper" ];then
@@ -434,6 +451,9 @@ CONF_LIBGCC(){
 			echo "install) $OPM install libgmp-dev libmpfr-dev libmpc-dev -y"
 			echo "remove)  $OPM purge libgmp-dev libmpfr-dev libmpc-dev -y"
 		fi
+		}
+		msg=$(err)
+		SHOW_MSG "$msg"
 		exit 1
 	fi
 }
@@ -445,32 +465,49 @@ CONF_LIBGCC64(){
 	GMP=0
 	MPFR=0
 	MPC=0
-	echo -n "Checking libgmp.la 64bit Library ... "	
+	m1="Checking libgmp.la 32bit Library ... "	
+	SHOW_MIXPROGRESS "$m1" 7
+	OK=$[$OK+33]
 	if [ -f $LIBGMP ];then
-		echo $LIBGMP
+		r1=Found
+		SHOW_MIXPROGRESS "$m1" "$r1"
 	else
-		echo "not found"
+		r1="Not Found"
+		SHOW_MIXPROGRESS "$m1" "$r1"
 		GMP=1
 	fi
-	echo -n "Checking libmpfr.la 64bit Library ... "	
+	m2="Checking libmpfr.la 32bit Library ... "
+	SHOW_MIXPROGRESS "$m1" "$r1" "$m2" 7
+	OK=$[$OK+33]
 	if [ -f $LIBMPFR ];then
-		echo $LIBMPFR
+		r2=Found
+		SHOW_MIXPROGRESS "$m1" "$r1" "$m2" "$r2"
 	else
-		echo "not found"
+		r2="Not Found"
+		SHOW_MIXPROGRESS "$m1" "$r1" "$m2" "$r2"
 		MPFR=1
 	fi
-	echo -n "Checking libmpc.la 64bit Library ... "	
+	m3="Checking libmpc.la 32bit Library ... "
+	SHOW_MIXPROGRESS "$m1" "$r1" "$m2" "$r2" "$m3" 7
+	OK=$[$OK+33]	
 	if [ -f $LIBMPC ];then
-		echo $LIBMPC
+		r3=Found
+		SHOW_MIXPROGRESS "$m1" "$r1" "$m2" "$r2" "$m3" "$r3"
 	else
-		echo "not found"
+		r3="Not Found"
+		SHOW_MIXPROGRESS "$m1" "$r1" "$m2" "$r2" "$m3" "$r3"
 		MPC=1
 	fi
 	if [ $MPC -eq 0 ] && [ $MPFR -eq 0 ] && [ $GMP -eq 0 ];then
+		OK=$[$OK+1]
+		SHOW_MIXPROGRESS "$m1" "$r1" "$m2" "$r2" "$m3" "$r3"
 		return 0
 	elif [ $MPC -eq 1 ] && [ $MPFR -eq 1 ] && [ $GMP -eq 1 ];then
+		OK=$[$OK+1]
+		SHOW_MIXPROGRESS "$m1" "$r1" "$m2" "$r2" "$m3" "$r3"
 		return 0
 	else
+		err(){
 		echo "libgmp, libmpc and libmpfr must be all present or all non-exists"
 		echo "please run following command to install all or remove all:"
 		if [ "$OPM" = "yum" ] || [ "$OPM" = "zypper" ];then
@@ -480,25 +517,36 @@ CONF_LIBGCC64(){
 			echo "install) $OPM install libgmp-dev libmpfr-dev libmpc-dev -y"
 			echo "remove)  $OPM purge libgmp-dev libmpfr-dev libmpc-dev -y"
 		fi
+		}
+		msg=$(err)
+		SHOW_MSG "$msg"
 		exit 1
 	fi
 }
 
 CONF_ROOT(){
-	echo -n "Checking current user is root ... "
+	msg="Checking current user is root ... "
+	SHOW_PROGRESS "$msg"
 	U=$(whoami)
 	if [ "$U" = "root" ];then
-		echo yes
 		if [ $FORCE_UNSAFE_CONFIGURE ] && [ $FORCE_UNSAFE_CONFIGURE -eq 1 ];then
+			OK=$[$OK+100]
+			SHOW_MIXPROGRESS "$msg" 6
 			return 0
 		else
+			SHOW_MIXPROGRESS "$msg" "yes"
+			err(){
 			echo "Root User is not recommended, if you want to do so"
 			echo "Please run following command and retry:"
 			echo "export FORCE_UNSAFE_CONFIGURE=1"
+			}
+			msg=$(err)
+			SHOW_MSG "$msg"
 			exit 1
 		fi
 	else
-		echo no
+		OK=$[$OK+100]
+		SHOW_MIXPROGRESS "$msg" "no"
 		return 0
 	fi
 }
@@ -513,12 +561,14 @@ CONF_OS(){
 	RPM=0
 	SUSE=0
 
-	echo -n "Checking OS Type ... "
+	msg="Checking OS Type ... "
+	SHOW_PROGRESS "$msg"
 	OSTYPE=$(cat /etc/issue|sed -rne "s/ .*//p")
 	if [ "$OSTYPE" = "Redhat" ] || [ "$OSTYPE" = "Red" ];then
 		OSTYPE=RHEL
 	fi
-	echo $OSTYPE
+	OK=$[$OK+100]
+	SHOW_MIXPROGRESS "$msg" "$OSTYPE"
 	case $OSTYPE in
 		Ubuntu)
 			UBUNTU=1
@@ -550,12 +600,17 @@ CONF_OS(){
 			;;
 		*)			
 			if [ $UNSUPPORTED_SYSTEM ] && [ $UNSUPPORTED_SYSTEM -eq 1 ];then
+				SHOW_MIXPROGRESS "$msg" "5"
 				return 0
 			else
+				err(){
 				echo "KSLinux can only build on deb-based systems,"
 				echo "kpm-based systems or yum-dnf-based systems,"
 				echo "you can run following command to skip this check:"
 				echo "export UNSUPPORTED_SYSTEM=1"
+				}
+				msg=$(err)
+				SHOW_MSG "$msg"
 				exit 1
 			fi
 			;;			
@@ -564,43 +619,57 @@ CONF_OS(){
 }
 
 CONF_KPM(){
-	echo -n 'Checking Package Manager ... '
+	msg='Checking Package Manager ... '
+	SHOW_MIXPROGRESS "$msg" 7
 	KPM="/usr/bin/kpm"
 	DPKG="/usr/bin/dpkg"
+	OK=$[$OK+100]
 	if [ -f $KPM ];then
-		echo $KPM
+		SHOW_MIXPROGRESS "$msg$KPM" 0
 		return 0
 	elif [ -f $DPKG ];then
-		echo $DPKG
+		SHOW_MIXPROGRESS "$msg$DPKG" 0
 		return 0
 	else
 		echo "not found"
 		if [ $NO_PACKAGE_MANAGER ] && [ $NO_PACKAGE_MANAGER -eq 1 ];then
+				SHOW_MIXPROGRESS "$msg" 6
 				return 0
 		else
+			err(){
 			echo "Please install Package Manager (dpkg) or (kpm) manually"
 			echo "or run following command to skip this check:"
 			echo "export NO_PACKAGE_MANAGER=1"
+			}
+			msg=$(err)
+			SHOW_MSG "$msg"
 			exit 1
 		fi
 	fi
 }
 
 CONF_LANG(){
-	echo -n 'Checking Language Variables are set ... '
+	msg='Checking Language Variables are set ... '
+	SHOW_PROGRESS "$msg"
+	OK=$[$OK+100]
 	if [ $PLANG -eq 1 ] || [ $PLANGUAGE -eq 1 ];then
-		echo "yes"
+		SHOW_PROGRESS "${msg}yes"
+		info(){
 		echo "You may meet some error while building some"
 		echo "packages,run following command to solve:"
 		echo "unset LANG; unset LANGUAGE;"
+		}
+		msg=$(info)
+		SHOW_MSG "$msg"
 	else
-		echo "no"
+		SHOW_PROGRESS "${msg}no"
 		return 0
 	fi
 }
 
 SHOW_HELP(){
 	SHOW_VERSION
+	info1(){	
 	echo ""
 	echo "--------------------------"
 	echo ""
@@ -616,14 +685,21 @@ SHOW_HELP(){
 	echo "  --tmpdir=<tmpdir>  sets temp dir to store temp files (default: SYSROOT/tmp)"
 	echo "  --version          show version of configure"
 	echo "  --help             show this help"
+	}
+	msg=$(info1)
+	SHOW_MSG "$msg"
 }
 
 SHOW_VERSION(){
+	info(){
 	echo "Kurasawa Configure Version: 1.0"
 	echo "(C)Copyright Ruby Kurosawa 2000~2017"
 	echo "This Script is licensed by Kurosawa"
 	echo "Open Source License GPLv3-Compactible"
 	echo "Version"
+	}
+	msg=$(info)
+	SHOW_MSG "$msg"
 }
 
 PARSE_ARGS(){
@@ -664,40 +740,54 @@ CONF_CHECK_DIR(){
 	NAME=$2
 	VALUE=$3
 	TRY=$1
-	echo -n "Checking $NAME ..."
+	m1="Checking $NAME ..."
+	SHOW_MIXPROGRESS "$m1" 7
 	if [ -d $VALUE ];then
-		echo "yes"
+		r1="Found"
+		SHOW_MIXPROGRESS "$m1" "$r1"
 		if [ "$TRY" = "try" ];then
-			echo -n "try to read $NAME ..."
+			m2="try to read $NAME ..."
 			ls $VALUE 2>/dev/null 1>/dev/null
 			if [ $? -eq 0 ];then
-				echo "done"
+				r2=0
+				OK=$[$OK+10]
+				SHOW_MIXPROGRESS "$m1" "$r1" "$m2" "$r2"
 			else
-				echo "fail"
+				r2=10
+				SHOW_MIXPROGRESS "$m1" "$r1" "$m2" "$r2"
 				exit 1
 			fi
-			echo -n "try to write $NAME ..."
+			m3="try to write $NAME ..."
 			touch $VALUE/a 2>/dev/null 1>/dev/null
 			if [ $? -eq 0 ];then
-				echo "done"
+				r3=0
+				OK=$[$OK+10]
+				SHOW_MIXPROGRESS "$m1" "$r1" "$m2" "$r2" "$m3" "$r3"
 				rm $VALUE/a
 			else
-				echo "fail"
+				r3=10
+				SHOW_MIXPROGRESS "$m1" "$r1" "$m2" "$r2" "$m3" "$r3"
 				exit 1
 			fi
 			return 0;
+		else
+			OK=$[$OK+20]
+			SHOW_MIXPROGRESS "$m1" "$r1"
 		fi
 	else
-		echo "no"
+		r1="Not Found"
+		SHOW_MIXPROGRESS "$m1" "$r1"
 		if [ "$TRY" = "try" ];then
-			echo -n "try to create $NAME ..."
+			m2="try to create $NAME ..."
+			SHOW_MIXPROGRESS "$m1" "$r1" "$m2" 7
 			mkdir -p $VALUE 2>/dev/null 1>/dev/null
 			if [ $? -eq 0 ];then
-				echo "done"
+				OK=$[$OK+20]
+				SHOW_MIXPROGRESS "$m1" "$r1" "$m2" 0
 				rm -rf $VALUE >/dev/null
 				return 0;
 			else
-				echo "fail"
+				SHOW_MIXPROGRESS "$m1" "$r1" "$m2" 10
 				exit 1
 			fi
 		else
@@ -717,20 +807,26 @@ CONF_DIR(){
 }
 
 CONF_OUTPUT_ENV(){
-	echo -n "Creating envsetup.sh ... "
+	msg="Creating envsetup.sh ... "
+	SHOW_MIXPROGRESS "$msg" 7
 	export pwd="$(pwd)"
 	sed -e "s!@pwd@!$pwd!g" -e "s/@TARGET@/$TARGET/g" envsetup.sh.in > envsetup.sh
 	./src.in
 	cat src>> envsetup.sh
 	rm src
 	chmod a+x envsetup.sh
-	echo "done"
+	OK=$[$OK+100]
+	SHOW_MIXPROGRESS "$msg" 0
 }
 
 CONF_OUTPUT_MAKEFILE(){
-	echo -n "Creating Makefile ... "
+	msg="Creating Makefile ... "
+	SHOW_MIXPROGRESS "$msg" 7
 	./makefile.in
-	echo "done"
+	OK=$[$OK+100]
+	SHOW_MIXPROGRESS "$msg" 0
+	SHOW_MSG "Makefile generated,Input following command to build:
+	make all"
 }
 
 CONF_WORK(){	
