@@ -3,6 +3,7 @@
 A Linux Distribution Based on GNU/Linux with Following extra packages:<br/>
 Kurosawa Package Manager (KPM) [conflicts: dpkg]<br/>
 Kuroasawa Package Toolset (KPT) [conflicts: apt]<br/>
+Supported Architecture: i386(i686) amd64(x86-64) armhf aarch64(arm64)
 
 KPM
 
