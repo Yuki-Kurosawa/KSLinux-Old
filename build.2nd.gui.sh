@@ -53,7 +53,7 @@ tar -xf $SRCROOT/$MPC_TAR
 mv -v $MPC_SRC mpc
 
 for file in \
- $(find gcc/config -name linux64.h -o -name linux.h -o -name sysv4.h)
+ $(find gcc/config -name linux64.h -o -name linux.h -o -name sysv4.h -o -name aarch64-linux.h -o -name linux-eabi.h)
 do
   cp -uv $file{,.orig}
   sed -e "s@/lib\(64\)\?\(32\)\?/ld@$CROSS&@g" \
@@ -125,7 +125,7 @@ tar -xf $SRCROOT/$MPC_TAR
 mv -v $MPC_SRC mpc
 
 for file in \
- $(find gcc/config -name linux64.h -o -name linux.h -o -name sysv4.h)
+ $(find gcc/config -name linux64.h -o -name linux.h -o -name sysv4.h -o -name aarch64-linux.h -o -name linux-eabi.h)
 do
   cp -uv $file{,.orig}
   sed -e "s@/lib\(64\)\?\(32\)\?/ld@$CROSS&@g" \
