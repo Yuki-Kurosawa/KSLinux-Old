@@ -810,7 +810,7 @@ CONF_OUTPUT_ENV(){
 	msg="Creating envsetup.sh ... "
 	SHOW_MIXPROGRESS "$msg" 7
 	export pwd="$(pwd)"
-	sed -e "s!@pwd@!$pwd!g" -e "s/@TARGET@/$TARGET/g" envsetup.sh.in > envsetup.sh
+	sed -e "s!@pwd@!$pwd!g" -e "s/@TARGET@/$TARGET/g" envsetup.sh.gui.in > envsetup.sh
 	./src.in
 	cat src>> envsetup.sh
 	rm src
@@ -822,7 +822,7 @@ CONF_OUTPUT_ENV(){
 CONF_OUTPUT_MAKEFILE(){
 	msg="Creating Makefile ... "
 	SHOW_MIXPROGRESS "$msg" 7
-	./makefile.in
+	./makefile.gui.in
 	OK=$[$OK+100]
 	SHOW_MIXPROGRESS "$msg" 0
 	SHOW_MSG "Makefile generated,Input following command to build:
