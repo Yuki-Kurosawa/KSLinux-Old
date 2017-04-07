@@ -4,9 +4,9 @@ mkdir -p $KS$LIBPARENT
 ln -sv $CROSS $KS$LIBPARENT$(echo $CROSS|sed -rne "s@$LIBPARENT@@p")
 
 # build tmp system
-cd $BUILDTMP
-# build binutils-1
 
+# build binutils-1
+cd $BUILDTMP
 tar xvf $SRCROOT/$BINUTILS_TAR
 cd $BINUTILS_SRC
 mkdir -v build

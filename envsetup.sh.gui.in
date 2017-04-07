@@ -1,10 +1,10 @@
 #!/bin/bash
 
-export SRCROOT=$SRCDIR
-export KS=$PREFIX
-export BUILDTMP=$TMPDIR
-export CROSS=$CROSS
-export LIBPARENT=$SYSROOT
+export SRCROOT=@SRCDIR@
+export KS=@PREFIX@
+export BUILDTMP=@TMPDIR@
+export CROSS=@CROSS@
+export LIBPARENT=@SYSROOT@
 export SCRIPTROOT=@pwd@
 
 # set env var

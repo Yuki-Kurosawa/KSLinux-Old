@@ -1,33 +1,68 @@
 
 # link output folder
-mkdir -p $KS$LIBPARENT
-ln -sv $CROSS $KS$LIBPARENT$(echo $CROSS|sed -rne "s@$LIBPARENT@@p")
+mkdir -p $KS$LIBPARENT 2>$OUTPUT 1>$OUTPUT
+ln -sv $CROSS $KS$LIBPARENT$(echo $CROSS|sed -rne "s@$LIBPARENT@@p") 2>$OUTPUT 1>$OUTPUT
 
 # build tmp system
-cd $BUILDTMP
+ALL=2
+OK=0
+THIS='Build freestanding gcc'
+
 # build binutils-1
+cd $BUILDTMP 2>$OUTPUT 1>$OUTPUT
+SHOW_MIXPROGRESS 'Extracting Binutils' 7
+tar xvf $SRCROOT/$BINUTILS_TAR 2>$OUTPUT 1>$OUTPUT
 
-tar xvf $SRCROOT/$BINUTILS_TAR
-cd $BINUTILS_SRC
-mkdir -v build
-cd build
+if [ $? -ne 0 ];then
+  SHOW_MIXPROGRESS 'Extracting Binutils' 10
+  exit 1
+else
+  SHOW_MIXPROGRESS 'Extracting Binutils' 0
+fi
 
+cd $BINUTILS_SRC 2>$OUTPUT 1>$OUTPUT
+mkdir -v build 2>$OUTPUT 1>$OUTPUT
+cd build 2>$OUTPUT 1>$OUTPUT
+
+SHOW_MIXPROGRESS 'Configure Binutils' 7
 ../configure --prefix=$CROSS            \
              --with-sysroot=$LFS        \
              --with-lib-path=$CROSS/lib \
              --target=$LFS_TGT          \
              --disable-nls              \
-             --disable-werror
+             --disable-werror 2>$OUTPUT 1>$OUTPUT
 
-$MAKE $MFLAGS
+if [ $? -ne 0 ];then
+  SHOW_MIXPROGRESS 'Configure Binutils' 10
+  exit 1
+else
+  SHOW_MIXPROGRESS 'Configure Binutils' 0
+fi
 
+SHOW_MIXPROGRESS 'Configure Binutils' 0 'Build Binutils' 7
+$MAKE $MFLAGS 2>$OUTPUT 1>$OUTPUT
+
+if [ $? -ne 0 ];then
+  SHOW_MIXPROGRESS 'Configure Binutils' 0 'Build Binutils' 10
+  exit 1
+else
+  SHOW_MIXPROGRESS 'Configure Binutils' 0 'Build Binutils' 0
+fi
 case $(uname -m) in
   x86_64) mkdir -v $CROSS/lib && ln -sv lib $CROSS/lib64 ;;
 esac
 
+SHOW_MIXPROGRESS 'Configure Binutils' 0 'Build Binutils' 0 'Install Binutils' 7
 $MAKE $MFLAGS install
-cd ../../
-rm -rf $BINUTILS_SRC
+
+if [ $? -ne 0 ];then
+  SHOW_MIXPROGRESS 'Configure Binutils' 0 'Build Binutils' 0 'Install Binutils' 10
+  exit 1
+else
+  SHOW_MIXPROGRESS 'Configure Binutils' 0 'Build Binutils' 0 'Install Binutils' 0
+fi
+cd ../../ 2>$OUTPUT 1>$OUTPUT
+rm -rf $BINUTILS_SRC 2>$OUTPUT 1>$OUTPUT
 
 # build gcc-1
 cd $BUILDTMP

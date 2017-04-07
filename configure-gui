@@ -810,7 +810,11 @@ CONF_OUTPUT_ENV(){
 	msg="Creating envsetup.sh ... "
 	SHOW_MIXPROGRESS "$msg" 7
 	export pwd="$(pwd)"
-	sed -e "s!@pwd@!$pwd!g" -e "s/@TARGET@/$TARGET/g" envsetup.sh.gui.in > envsetup.sh
+	sed -e "s!@pwd@!$pwd!g" -e "s!@TARGET@!$TARGET!g" \
+	-e "s!@SRCDIR@!$SRCDIR!g" -e "s!@SYSROOT@!$SYSROOT!g" \
+	-e "s!@CROSS@!$CROSS!g" -e "s!@PREFIX@!$PREFIX!g" \
+	-e "s!@TMPDIR@!$TMPDIR!g" \
+	envsetup.sh.gui.in > envsetup.sh
 	./src.in
 	cat src>> envsetup.sh
 	rm src
