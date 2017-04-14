@@ -677,8 +677,7 @@ SHOW_HELP(){
 	echo ""
 	echo "options:"
 	echo "  --prefix=<prefix>  sets prefix dir (default: /ks/ramfs)"
-	echo "  --target=<target>  sets build target (default: ARCH-ks-linux-gnu)"
-	echo "                     ARCH=$(uname -m)"
+	echo "  --target=<target>  sets build target (default: $TARGET)"
 	echo "  --cross=<cross>    sets cross complier build path (default: SYSROOT/cross)"
 	echo "  --sysroot=<root>   sets sysroot dir (default: /tool)"
 	echo "  --srcdir=<srcdir>  sets source dir which contains source (default: SYSROOT/src)"
@@ -728,12 +727,30 @@ CONF_PREINIT(){
 	PLANGUAGE=0
 	if [ $LANG ];then PLANG=1; unset LANG; fi
 	if [ $LANGUAGE ];then PLANGUAGE=1; unset LANGUAGE; fi
-	PREFIX=/ks/ramfs
-	TARGET=$(uname -m)-ks-linux-gnu
+	PREFIX=/ks/ramfs	
 	SYSROOT=/tool
 	CROSS=$SYSROOT/cross
 	SRCDIR=$SYSROOT/src
 	TMPDIR=$SYSROOT/tmp
+	UNAMEM=$(uname -m)
+	case "$UNAMEM" in
+		i386|i486|i586|i686)
+			TARGET=${UNAMEM}-ks-linux-gnu
+			GFLAGS=""
+			;;
+		x86_64|amd64)
+			TARGET=${UNAMEM}-ks-linux-gnu
+			GFLAGS=""
+			;;
+		armv7l|armhf)
+			TARGET=arm-ks-linux-gnueabihf
+			GFLAGS="-march=armv7-a -mtune=generic-armv7-a -mfpu=vfp-v3-fp16"
+			;;
+		armv8l|aarch64)
+			TARGET=aarch64-ks-linux-gnu
+			GFLAGS="-mabi=lp64 -march=armv8-a -mtune=generic"
+			;;
+	esac
 }
 
 CONF_CHECK_DIR(){
@@ -813,7 +830,7 @@ CONF_OUTPUT_ENV(){
 	sed -e "s!@pwd@!$pwd!g" -e "s!@TARGET@!$TARGET!g" \
 	-e "s!@SRCDIR@!$SRCDIR!g" -e "s!@SYSROOT@!$SYSROOT!g" \
 	-e "s!@CROSS@!$CROSS!g" -e "s!@PREFIX@!$PREFIX!g" \
-	-e "s!@TMPDIR@!$TMPDIR!g" \
+	-e "s!@TMPDIR@!$TMPDIR!g" -e "s!@GFLAGS@!$GFLAGS!g" \
 	envsetup.sh.gui.in > envsetup.sh
 	./src.in
 	cat src>> envsetup.sh
