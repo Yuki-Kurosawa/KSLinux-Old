@@ -1,10 +1,10 @@
 #!/bin/bash
 
-export SRCROOT=$SRCDIR
-export KS=$PREFIX
-export BUILDTMP=$TMPDIR
-export CROSS=$CROSS
-export LIBPARENT=$SYSROOT
+export SRCROOT=@SRCDIR@
+export KS=@PREFIX@
+export BUILDTMP=@TMPDIR@
+export CROSS=@CROSS@
+export LIBPARENT=@SYSROOT@
 export SCRIPTROOT=@pwd@
 
 # set env var
@@ -20,5 +20,6 @@ LFS_TGT=@TARGET@
 PATH=$CROSS/bin:/bin:/usr/bin
 MAKE=make
 MFLAGS=-j4
-export LFS LC_ALL LFS_TGT PATH MAKE MFLAGS
+GFLAGS="@GFLAGS@"
+export LFS LC_ALL LFS_TGT PATH MAKE MFLAGS GFLAGS
 
