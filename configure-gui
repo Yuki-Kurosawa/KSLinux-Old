@@ -744,7 +744,7 @@ CONF_PREINIT(){
 			;;
 		armv7l|armhf)
 			TARGET=arm-ks-linux-gnueabihf
-			GFLAGS="-march=armv7-a -mtune=generic-armv7-a -mfpu=vfp-v3-fp16"
+			GFLAGS="-march=armv7-a -mtune=generic-armv7-a -mfpu=vfpv3-fp16"
 			;;
 		armv8l|aarch64)
 			TARGET=aarch64-ks-linux-gnu

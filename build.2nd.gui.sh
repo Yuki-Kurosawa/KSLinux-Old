@@ -153,7 +153,7 @@ RANLIB=$LFS_TGT-ranlib                             \
     --disable-libgomp                              \
     --disable-bootstrap                            \
     --disable-libstdcxx-pch                        \
-    --enable-languages=c,c++
+    --enable-languages=c,c++ $GFLAGS
 
 $MAKE $MFLAGS
 $MAKE $MFLAGS install

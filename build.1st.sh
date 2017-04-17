@@ -78,7 +78,7 @@ cd       build
     --disable-libssp                               \
     --disable-libvtv                               \
     --disable-libstdcxx                            \
-    --enable-languages=c,c++
+    --enable-languages=c,c++ $GFLAGS
 
 $MAKE $MFLAGS
 $MAKE $MFLAGS install
