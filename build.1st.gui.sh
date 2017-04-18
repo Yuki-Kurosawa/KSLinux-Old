@@ -113,6 +113,7 @@ cd       build
     --disable-libssp                               \
     --disable-libvtv                               \
     --disable-libstdcxx                            \
+    --disable-libmudflap                           \
     --enable-languages=c,c++ $GFLAGS
 
 $MAKE $MFLAGS
