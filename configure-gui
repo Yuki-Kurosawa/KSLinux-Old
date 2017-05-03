@@ -745,12 +745,12 @@ CONF_PREINIT(){
 		armv7l|armhf)
 			TARGET=arm-ks-linux-gnueabihf
 			#GFLAGS="-march=armv7-a -mfloat-abi=softfp -mtune=generic-armv7-a -mfpu=vfpv3-fp16"
-			GFLAGS="--disable-libiberty --with-arch=armv7-a --with-tune=generic-armv7-a --with-fpu=vfpv3-fp16"
+			GFLAGS="--with-arch=armv7-a --with-tune=generic-armv7-a --with-fpu=vfpv3-fp16"
 			;;
 		armv8l|aarch64)
 			TARGET=aarch64-ks-linux-gnu
 			#GFLAGS="-mabi=lp64 -march=armv8-a -mtune=generic"
-			GFLAGS="--disable-libiberty --with-abi=lp64 --with-arch=armv8-a --with-tune=generic"
+			GFLAGS="--with-abi=lp64 --with-arch=armv8-a --with-tune=generic"
 			;;
 	esac
 }
@@ -833,6 +833,7 @@ CONF_OUTPUT_ENV(){
 	-e "s!@SRCDIR@!$SRCDIR!g" -e "s!@SYSROOT@!$SYSROOT!g" \
 	-e "s!@CROSS@!$CROSS!g" -e "s!@PREFIX@!$PREFIX!g" \
 	-e "s!@TMPDIR@!$TMPDIR!g" -e "s!@GFLAGS@!$GFLAGS!g" \
+	-e "s!@UNAMEM@!$UNAMEM!g" \
 	envsetup.sh.gui.in > envsetup.sh
 	./src.in
 	cat src>> envsetup.sh
