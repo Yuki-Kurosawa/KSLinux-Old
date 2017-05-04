@@ -6,6 +6,7 @@ export BUILDTMP=@TMPDIR@
 export CROSS=@CROSS@
 export LIBPARENT=@SYSROOT@
 export SCRIPTROOT=@pwd@
+export UNAMEM=@UNAMEM@
 
 # set env var
 rm -rf {$KS,$BUILDTMP,$CROSS} 2>/dev/null
@@ -21,5 +22,5 @@ PATH=$CROSS/bin:/bin:/usr/bin
 MAKE=make
 MFLAGS=-j4
 GFLAGS="@GFLAGS@"
-export LFS LC_ALL LFS_TGT PATH MAKE MFLAGS GFLAGS
+export LFS LC_ALL LFS_TGT PATH MAKE MFLAGS GFLAGS UNAMEM
 
