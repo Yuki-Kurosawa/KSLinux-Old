@@ -5,7 +5,7 @@ cat > $KS/sbin/init << EOF
 #!/bin/bash
 TERM="$TERM"
 PS1='\u:\w\$ '
-PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin
+PATH=/bin:/usr/bin:/sbin:/usr/sbin:$CROSS
 exec /bin/bash --login +h 
 EOF
 chmod 0777 $KS/sbin/init
