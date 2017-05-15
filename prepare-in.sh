@@ -5,10 +5,21 @@ cat > $KS/sbin/init << EOF
 #!/bin/bash
 TERM="$TERM"
 PS1='\u:\w\$ '
-PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin
+PATH=/bin:/usr/bin:/sbin:/usr/sbin:$CROSS/bin
+HOME=/root
+export TERM PS1 PATH HOME
+mount -vt devtmpfs devtmpfs /dev
+mount -vt proc proc /proc
+mount -vt sysfs sysfs /sys
+mkdir /dev/pts
+mount -vt devpts devpts /dev/pts
+mount -vt tmpfs tmpfs /run
+mount -vt tmpfs tmpfs /tmp
+clear
 exec /bin/bash --login +h 
 EOF
 chmod 0777 $KS/sbin/init
+ln -s /sbin/init $KS/init
 
 cat > $KS/sbin/setup.sh << EOF
 #!/tool/bin/bash
