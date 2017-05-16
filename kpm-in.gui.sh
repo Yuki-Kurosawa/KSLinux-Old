@@ -7,3 +7,4 @@ make
 make install
 cd ..
 rm -rf $KPM_SRC
+touch $KS$CROSS/var/lib/kpm/status

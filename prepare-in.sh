@@ -18,6 +18,7 @@ mount -vt tmpfs tmpfs /tmp
 clear
 exec /bin/bash --login +h 
 EOF
+
 chmod 0777 $KS/sbin/init
 ln -s /sbin/init $KS/init
 
