@@ -5,7 +5,7 @@ cat > $KS/sbin/init << EOF
 #!/bin/bash
 TERM="$TERM"
 PS1='\u:\w\$ '
-PATH=/bin:/usr/bin:/sbin:/usr/sbin:$CROSS/bin
+PATH=/bin:/usr/bin:/sbin:/usr/sbin:$CROSS/bin:$CROSS/sbin
 HOME=/root
 export TERM PS1 PATH HOME
 mount -vt devtmpfs devtmpfs /dev
