@@ -537,7 +537,7 @@ CONF_PREINIT(){
 		armv8l|aarch64)
 			TARGET=aarch64-ks-linux-gnu
 			#GFLAGS="-mabi=lp64 -march=armv8-a -mtune=generic"
-			GFLAGS="-with-abi=lp64 --with-arch=armv8-a --with-tune=generic"
+			GFLAGS="-with-abi=lp64 --with-arch=armv8-a"
 			;;
 	esac
 }
