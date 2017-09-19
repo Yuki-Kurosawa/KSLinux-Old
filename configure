@@ -29,7 +29,7 @@ CONF_SH_BASH(){
 			echo "rm -rf /bin/sh && ln -s /bin/bash /bin/sh"
 		else
 			echo "Please run following command with root and select No:"
-			echo "$OPM-reconfigure $SH"
+			echo "dpkg-reconfigure $SH"
 		fi
 		exit 1
 	fi
@@ -385,23 +385,23 @@ CONF_OS(){
 	case $OSTYPE in
 		Ubuntu)
 			UBUNTU=1
-			OPM=dpkg
+			OPM=apt
 			;;
 		Debian)
 			DEBIAN=1
-			OPM=dpkg
+			OPM=apt
 			;;
 		Kali)
 			KALI=1
-			OPM=dpkg
+			OPM=apt
 			;;
 		Deepin)
 			DEEPIN=1
-			OPM=dpkg
+			OPM=apt
 			;;
 		KSLinux|Kurosawa)
 			KS=1
-			OPM=kpm
+			OPM=kpt
 			;;
 		RHEL|Fedora|CentOS)
 			RPM=1
@@ -450,6 +450,7 @@ CONF_KPM(){
 }
 
 CONF_LANG(){
+	echo -n 'Checking Language Variables are set ... '
 	if [ $PLANG -eq 1 ] || [ $PLANGUAGE -eq 1 ];then
 		echo "yes"
 		echo "You may meet some error while building some"
@@ -470,8 +471,7 @@ SHOW_HELP(){
 	echo ""
 	echo "options:"
 	echo "  --prefix=<prefix>  sets prefix dir (default: /ks/ramfs)"
-	echo "  --target=<target>  sets build target (default: ARCH-ks-linux-gnu)"
-	echo "                     ARCH=$(uname -m)"
+	echo "  --target=<target>  sets build target (default: $TARGET)"
 	echo "  --cross=<cross>    sets cross complier build path (default: SYSROOT/cross)"
 	echo "  --sysroot=<root>   sets sysroot dir (default: /tool)"
 	echo "  --srcdir=<srcdir>  sets source dir which contains source (default: SYSROOT/src)"
@@ -514,12 +514,32 @@ CONF_PREINIT(){
 	PLANGUAGE=0
 	if [ $LANG ];then PLANG=1; unset LANG; fi
 	if [ $LANGUAGE ];then PLANGUAGE=1; unset LANGUAGE; fi
-	PREFIX=/ks/ramfs
-	TARGET=$(uname -m)-ks-linux-gnu
+	PREFIX=/ks/ramfs	
 	SYSROOT=/tool
 	CROSS=$SYSROOT/cross
 	SRCDIR=$SYSROOT/src
 	TMPDIR=$SYSROOT/tmp
+	UNAMEM=$(uname -m)
+	case "$UNAMEM" in
+		i386|i486|i586|i686)
+			TARGET=${UNAMEM}-ks-linux-gnu
+			GFLAGS=""
+			;;
+		x86_64|amd64)
+			TARGET=${UNAMEM}-ks-linux-gnu
+			GFLAGS=""
+			;;
+		armv7l|armhf)
+			TARGET=arm-ks-linux-gnueabihf
+			#GFLAGS="-march=armv7-a -mfloat-abi=softfp -mtune=generic-armv7-a -mfpu=vfpv3-fp16"
+			GFLAGS="--with-arch=armv7-a --with-tune=generic-armv7-a --with-fpu=vfpv3-fp16"
+			;;
+		armv8l|aarch64)
+			TARGET=aarch64-ks-linux-gnu
+			#GFLAGS="-mabi=lp64 -march=armv8-a -mtune=generic"
+			GFLAGS="-with-abi=lp64 --with-arch=armv8-a"
+			;;
+	esac
 }
 
 CONF_CHECK_DIR(){
@@ -580,39 +600,17 @@ CONF_DIR(){
 
 CONF_OUTPUT_ENV(){
 	echo -n "Creating envsetup.sh ... "
-	cat > envsetup.sh <<EOF
-#!/bin/bash
-
-export SRCROOT=$SRCDIR
-export KS=$PREFIX
-export BUILDTMP=$TMPDIR
-export CROSS=$CROSS
-export LIBPARENT=$SYSROOT
-export SCRIPTROOT=$(pwd)
-EOF
-echo '
-# set env var
-rm -rf {$KS,$BUILDTMP,$CROSS} 2>/dev/null
-mkdir -p {$KS,$BUILDTMP,$CROSS} 2>/dev/null
-
-set +h
-umask 022
-LFS=$KS
-LC_ALL=POSIX' >> envsetup.sh
-
-cat >> envsetup.sh <<EOF
-LFS_TGT=$TARGET
-EOF
-echo '
-PATH=$CROSS/bin:/bin:/usr/bin
-MAKE=make
-MFLAGS=-j4
-export LFS LC_ALL LFS_TGT PATH MAKE MFLAGS
-'>>envsetup.sh
-./src.in
-cat src>> envsetup.sh
-rm src
-chmod a+x envsetup.sh
+	export pwd="$(pwd)"
+	sed -e "s!@pwd@!$pwd!g" -e "s!@TARGET@!$TARGET!g" \
+	-e "s!@SRCDIR@!$SRCDIR!g" -e "s!@SYSROOT@!$SYSROOT!g" \
+	-e "s!@CROSS@!$CROSS!g" -e "s!@PREFIX@!$PREFIX!g" \
+	-e "s!@TMPDIR@!$TMPDIR!g" -e "s!@GFLAGS@!$GFLAGS!g" \
+	-e "s!@UNAMEM@!$UNAMEM!g" \
+	envsetup.sh.in > envsetup.sh
+	./src.in
+	cat src>> envsetup.sh
+	rm src
+	chmod a+x envsetup.sh
 	echo "done"
 }
 

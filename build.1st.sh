@@ -4,9 +4,9 @@ mkdir -p $KS$LIBPARENT
 ln -sv $CROSS $KS$LIBPARENT$(echo $CROSS|sed -rne "s@$LIBPARENT@@p")
 
 # build tmp system
-cd $BUILDTMP
-# build binutils-1
 
+# build binutils-1
+cd $BUILDTMP
 tar xvf $SRCROOT/$BINUTILS_TAR
 cd $BINUTILS_SRC
 mkdir -v build
@@ -34,15 +34,23 @@ cd $BUILDTMP
 tar xvf $SRCROOT/$GCC_TAR
 cd $GCC_SRC
 
-tar -xf $SRCROOT/$MPFR_TAR
-mv -v $MPFR_SRC mpfr
-tar -xf $SRCROOT/$GMP_TAR
-mv -v $GMP_SRC gmp
-tar -xf $SRCROOT/$MPC_TAR
-mv -v $MPC_SRC mpc
+case "$UNAMEM" in
+		i386|i486|i586|i686|amd64|x86_64)
+      tar -xf $SRCROOT/$MPFR_TAR
+      mv -v $MPFR_SRC mpfr
+      tar -xf $SRCROOT/$GMP_TAR
+      mv -v $GMP_SRC gmp
+      tar -xf $SRCROOT/$MPC_TAR
+      mv -v $MPC_SRC mpc
+			;;
+		armv7l|armhf|armv8l|aarch64)
+      ./contrib/download_prerequisites
+			;;
+	esac
+
 
 for file in \
- $(find gcc/config -name linux64.h -o -name linux.h -o -name sysv4.h)
+ $(find gcc/config -name linux64.h -o -name linux.h -o -name sysv4.h -o -name aarch64-linux.h -o -name linux-eabi.h)
 do
   cp -uv $file{,.orig}
   sed -e "s@/lib\(64\)\?\(32\)\?/ld@$CROSS&@g" \
@@ -78,7 +86,8 @@ cd       build
     --disable-libssp                               \
     --disable-libvtv                               \
     --disable-libstdcxx                            \
-    --enable-languages=c,c++
+    --disable-libmudflap                           \
+    --enable-languages=c,c++ $GFLAGS
 
 $MAKE $MFLAGS
 $MAKE $MFLAGS install

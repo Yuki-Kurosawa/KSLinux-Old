@@ -1,0 +1,65 @@
+#!/bin/bash
+
+export SRCROOT=@SRCDIR@
+export KS=@PREFIX@
+export BUILDTMP=@TMPDIR@
+export CROSS=@CROSS@
+export LIBPARENT=@SYSROOT@
+export SCRIPTROOT=@pwd@
+export UNAMEM=@UNAMEM@
+
+# set env var
+rm -rf {$KS,$BUILDTMP,$CROSS} 2>/dev/null
+mkdir -p {$KS,$BUILDTMP,$CROSS} 2>/dev/null
+
+set +h
+umask 022
+LFS=$KS
+LC_ALL=POSIX
+LFS_TGT=@TARGET@
+
+PATH=$CROSS/bin:/bin:/usr/bin
+MAKE=make
+MFLAGS=-j4
+GFLAGS="@GFLAGS@"
+export LFS LC_ALL LFS_TGT PATH MAKE MFLAGS GFLAGS UNAMEM
+
+export TITLE='Kurosawa Linux (ruby) Build Tool'
+export THIS='Configure Build Environment'
+export ALL=23
+export OK=0
+export OUTPUT=/dev/null
+
+SHOW_INFOMSG(){
+	if [ -f /usr/bin/dialog ];then
+		dialog --backtitle "$TITLE" --no-ok --no-cancel --title "$THIS" --infobox "$1" 0 0 2>/dev/null
+	else
+		echo "$1"
+	fi
+}
+
+SHOW_MSG(){
+	if [ -f /usr/bin/dialog ];then
+		dialog --backtitle "$TITLE" --title "$THIS" --msgbox "$1" 0 0 2>/dev/null
+	else
+		echo "$1"
+	fi
+}
+
+SHOW_PROGRESS(){
+	if [ -f /usr/bin/dialog ];then
+		echo $[$OK/$ALL] | dialog --backtitle "$TITLE" --title "$THIS" --gauge "$1" 0 0 2>/dev/null
+		sleep 1
+	else
+		echo "$1"
+	fi
+}
+
+SHOW_MIXPROGRESS(){
+	if [ -f /usr/bin/dialog ];then
+		dialog --backtitle "$TITLE" --title "$THIS" --mixedgauge "" 0 0 "$[$OK/$ALL]" "$1" "$2" "$3" "$4" "$5" "$6" 2>/dev/null
+		sleep 1
+	else
+		echo "$1"
+	fi
+}
