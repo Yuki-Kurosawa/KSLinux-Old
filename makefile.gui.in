@@ -63,9 +63,21 @@ kpm: kpm.sh
 	@./kpm.sh
 	@touch kpm
 
+prepare.sh: prepare-in.sh
+	@cat envsetup.sh > prepare.sh
+	@sed "11,12d" prepare.sh > prepare.o
+	@cat prepare.o > prepare.sh
+	@rm prepare.o
+	@cat prepare-in.sh >> prepare.sh
+	@chmod a+x prepare.sh
+
+prepare: prepare.sh
+	@./prepare.sh
+	@touch prepare
+
 clean: distclean
 	@rm -rf makefile envsetup.sh build.1st build.2nd cross-gcc-stage1 cross-gcc-stage2 build.tmp \
-	tmp-system kpm.sh kpm fixperm.sh
+	tmp-system kpm.sh kpm fixperm.sh prepare.sh prepare
 
 distclean:
 	@cat envsetup.sh > clean.sh
