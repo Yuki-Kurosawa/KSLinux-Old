@@ -1,0 +1,460 @@
+ar: `u' modifier ignored since `D' is the default (see `U')
+In file included from ../../binutils/syslex_wrap.c:25:0:
+syslex.c: In function 'yy_get_next_buffer':
+syslex.c:1226:44: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+arlex.c: In function 'yy_get_next_buffer':
+arlex.c:1352:44: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+In file included from ../../ld/ldlex-wrapper.c:26:0:
+ldlex.c: In function 'yy_get_next_buffer':
+ldlex.c:3540:44: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+*** This configuration is not supported in the following subdirectories:
+     target-libquadmath target-libstdc++-v3 gnattools gotools target-libada target-libhsail-rt target-libgfortran target-libbacktrace target-libgo target-libffi target-libobjc target-libgomp target-liboffloadmic target-libatomic target-libvtv target-libmpx target-libssp target-libcilkrts target-libitm target-libsanitizer
+    (Any other directories should still work fine.)
+configure: WARNING: using cross tools not prefixed with host triplet
+configure: WARNING: the "none" host is obsolete, use --disable-assembly
+configure: WARNING: cannot check for properly working vsnprintf when cross compiling, will assume it's ok
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+../../../libcpp/expr.c: In function 'unsigned int cpp_classify_number(cpp_reader*, const cpp_token*, const char**, source_location)':
+../../../libcpp/expr.c:770:18: warning: format not a string literal and no format arguments [-Wformat-security]
+        0, message);
+                  ^
+../../../libcpp/expr.c:773:39: warning: format not a string literal and no format arguments [-Wformat-security]
+           virtual_location, 0, message);
+                                       ^
+../../../libcpp/macro.c: In function 'bool create_iso_definition(cpp_reader*, cpp_macro*)':
+../../../libcpp/macro.c:3105:58: warning: format not a string literal and no format arguments [-Wformat-security]
+        cpp_error (pfile, CPP_DL_ERROR, paste_op_error_msg);
+                                                          ^
+../../../libcpp/macro.c:3118:58: warning: format not a string literal and no format arguments [-Wformat-security]
+        cpp_error (pfile, CPP_DL_ERROR, paste_op_error_msg);
+                                                          ^
+libtool: install: warning: remember to run `libtool --finish /tool/cross/libexec/gcc/x86_64-ks-linux-gnu/7.2.0'
+ar: `u' modifier ignored since `D' is the default (see `U')
+../../libcpp/expr.c: In function 'unsigned int cpp_classify_number(cpp_reader*, const cpp_token*, const char**, source_location)':
+../../libcpp/expr.c:770:18: warning: format not a string literal and no format arguments [-Wformat-security]
+        0, message);
+                  ^
+../../libcpp/expr.c:773:39: warning: format not a string literal and no format arguments [-Wformat-security]
+           virtual_location, 0, message);
+                                       ^
+../../libcpp/macro.c: In function 'bool create_iso_definition(cpp_reader*, cpp_macro*)':
+../../libcpp/macro.c:3105:58: warning: format not a string literal and no format arguments [-Wformat-security]
+        cpp_error (pfile, CPP_DL_ERROR, paste_op_error_msg);
+                                                          ^
+../../libcpp/macro.c:3118:58: warning: format not a string literal and no format arguments [-Wformat-security]
+        cpp_error (pfile, CPP_DL_ERROR, paste_op_error_msg);
+                                                          ^
+ar: `u' modifier ignored since `D' is the default (see `U')
+configure: WARNING: fixed-point is not supported for this target, ignored
+Links are now set up to build a cross-compiler
+ from x86_64-pc-linux-gnu to x86_64-ks-linux-gnu.
+../../gcc/genhooks.c: In function 'void emit_documentation(const char*)':
+../../gcc/genhooks.c:130:45: warning: ignoring return value of 'int fscanf(FILE*, const char*, ...)', declared with attribute warn_unused_result [-Wunused-result]
+   while (fscanf (f, "%*[^@]"), buf[0] = '\0',
+                                             ^
+../../gcc/genhooks.c:139:14: warning: ignoring return value of 'int fscanf(FILE*, const char*, ...)', declared with attribute warn_unused_result [-Wunused-result]
+       fscanf (f, "%999s", buf);
+       ~~~~~~~^~~~~~~~~~~~~~~~~
+../../gcc/genhooks.c:192:14: warning: ignoring return value of 'int fscanf(FILE*, const char*, ...)', declared with attribute warn_unused_result [-Wunused-result]
+       fscanf (f, "%5[^ \n]", buf);
+       ~~~~~~~^~~~~~~~~~~~~~~~~~~~
+../../gcc/genhooks.c:198:14: warning: ignoring return value of 'int fscanf(FILE*, const char*, ...)', declared with attribute warn_unused_result [-Wunused-result]
+       fscanf (f, "%999s", buf);
+       ~~~~~~~^~~~~~~~~~~~~~~~~
+gengtype-lex.c: In function 'int yy_get_next_buffer()':
+gengtype-lex.c:1343:18: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+gengtype-lex.c:2150:3: note: in expansion of macro 'YY_INPUT'
+gengtype-lex.c: In function 'yy_buffer_state* yy_scan_bytes(const char*, yy_size_t)':
+gengtype-lex.c:2658:17: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+/space/rguenther/gcc-7.2.0/gcc-7.2.0/gcc/gengtype-lex.l: In function 'int yylex(const char**)':
+gengtype-lex.c:365:15: warning: this statement may fall through [-Wimplicit-fallthrough=]
+/space/rguenther/gcc-7.2.0/gcc-7.2.0/gcc/gengtype-lex.l:117:1: note: in expansion of macro 'YY_DO_BEFORE_ACTION'
+/space/rguenther/gcc-7.2.0/gcc-7.2.0/gcc/gengtype-lex.l:113:1: note: here
+gengtype-lex.c:365:15: warning: this statement may fall through [-Wimplicit-fallthrough=]
+/space/rguenther/gcc-7.2.0/gcc-7.2.0/gcc/gengtype-lex.l:134:1: note: in expansion of macro 'YY_DO_BEFORE_ACTION'
+/space/rguenther/gcc-7.2.0/gcc-7.2.0/gcc/gengtype-lex.l:131:1: note: here
+GIMPLE decision tree has 1882 leafs, maximum depth 12 and a total number of 7473 nodes
+removed 1098 duplicate tails
+GENERIC decision tree has 1840 leafs, maximum depth 12 and a total number of 7247 nodes
+removed 1059 duplicate tails
+Statistics for recog:
+  Number of decisions:  40136
+  longest path:           381 (code:   3713)
+  longest backtrack:       27 (code:   4427)
+Statistics for split_insns:
+  Number of decisions:   2571
+  longest path:            81 (code:    452)
+  longest backtrack:       18 (code:    421)
+Statistics for peephole2_insns:
+  Number of decisions:   1420
+  longest path:           194 (code:     79)
+  longest backtrack:       17 (code:    158)
+Shared 30074 out of 59977 states by creating 7944 new states, saving 22130
+../../gcc/c/c-typeck.c: In function 'int convert_arguments(location_t, vec<unsigned int>, tree, vec<tree_node*, va_gc>*, vec<tree_node*, va_gc>*, tree, tree)':
+../../gcc/c/c-typeck.c:3534:28: warning: format not a string literal and no format arguments [-Wformat-security]
+    error (invalid_func_diag);
+                            ^
+../../gcc/c/c-typeck.c: In function 'tree_node* build_unary_op(location_t, tree_code, tree, bool)':
+../../gcc/c/c-typeck.c:4189:42: warning: format not a string literal and no format arguments [-Wformat-security]
+       error_at (location, invalid_op_diag);
+                                          ^
+../../gcc/c/c-typeck.c: In function 'void error_init(location_t, const char*)':
+../../gcc/c/c-typeck.c:6042:24: warning: format not a string literal and no format arguments [-Wformat-security]
+   error_at (loc, gmsgid);
+                        ^
+../../gcc/c/c-typeck.c: In function 'void pedwarn_init(location_t, int, const char*)':
+../../gcc/c/c-typeck.c:6065:40: warning: format not a string literal and no format arguments [-Wformat-security]
+   warned = pedwarn (exploc, opt, gmsgid);
+                                        ^
+../../gcc/c/c-typeck.c: In function 'void warning_init(location_t, int, const char*)':
+../../gcc/c/c-typeck.c:6089:43: warning: format not a string literal and no format arguments [-Wformat-security]
+   warned = warning_at (exploc, opt, gmsgid);
+                                           ^
+../../gcc/c/c-typeck.c: In function 'tree_node* build_binary_op(location_t, tree_code, tree, tree, int)':
+../../gcc/c/c-typeck.c:10877:42: warning: format not a string literal and no format arguments [-Wformat-security]
+       error_at (location, invalid_op_diag);
+                                          ^
+../../gcc/c/c-convert.c: In function 'tree_node* convert(tree, tree)':
+../../gcc/c/c-convert.c:78:31: warning: format not a string literal and no format arguments [-Wformat-security]
+       error (invalid_conv_diag);
+                               ^
+../../gcc/c-family/c-common.c: In function 'void c_parse_error(const char*, cpp_ttype, tree, unsigned char)':
+../../gcc/c-family/c-common.c:6145:18: warning: format not a string literal and no format arguments [-Wformat-security]
+     error (gmsgid);
+                  ^
+../../gcc/c-family/c-common.c:6149:21: warning: format not a string literal and no format arguments [-Wformat-security]
+       error (message);
+                     ^
+../../gcc/c-family/cilk.c: In function 'bool check_no_cilk(tree, const char*, const char*, location_t)':
+../../gcc/c-family/cilk.c:1435:33: warning: format not a string literal and no format arguments [-Wformat-security]
+       error_at (loc, array_msgid);
+                                 ^
+../../gcc/c-family/cilk.c:1441:33: warning: format not a string literal and no format arguments [-Wformat-security]
+       error_at (loc, spawn_msgid);
+                                 ^
+../../gcc/fold-const.c: In function 'void fold_overflow_warning(const char*, warn_strict_overflow_code)':
+../../gcc/fold-const.c:304:42: warning: format not a string literal and no format arguments [-Wformat-security]
+     warning (OPT_Wstrict_overflow, gmsgid);
+                                          ^
+../../gcc/gimple-ssa-isolate-paths.c: In function 'void find_explicit_erroneous_behavior()':
+../../gcc/gimple-ssa-isolate-paths.c:530:38: warning: format not a string literal and no format arguments [-Wformat-security]
+           OPT_Wreturn_local_addr, msg))
+                                      ^
+../../gcc/hsa-gen.c: In member function 'void omp_simple_builtin::generate(gimple*, hsa_bb*)':
+../../gcc/hsa-gen.c:84:32: warning: format not a string literal and no format arguments [-Wformat-security]
+       inform (location, message); \
+                                ^
+../../gcc/hsa-gen.c:4406:2: note: in expansion of macro 'HSA_SORRY_AT'
+  HSA_SORRY_AT (gimple_location (stmt), m_warning_message);
+  ^~~~~~~~~~~~
+../../gcc/hsa-gen.c:4413:68: warning: format not a string literal and no format arguments [-Wformat-security]
+     warning_at (gimple_location (stmt), OPT_Whsa, m_warning_message);
+                                                                    ^
+../../gcc/ipa-devirt.c: In function 'void warn_odr(tree, tree, tree, tree, bool, bool*, const char*)':
+../../gcc/ipa-devirt.c:1021:47: warning: format not a string literal and no format arguments [-Wformat-security]
+   inform (DECL_SOURCE_LOCATION (decl2), reason);
+                                               ^
+../../gcc/cp/pt.c: In function 'tree_node* tsubst_copy_and_build(tree, tree, tsubst_flags_t, tree, bool, bool)':
+../../gcc/cp/pt.c:16719:20: warning: format not a string literal and no format arguments [-Wformat-security]
+    error (error_msg);
+                    ^
+../../gcc/cp/parser.c: In function 'bool cp_parser_check_type_definition(cp_parser*)':
+../../gcc/cp/parser.c:2935:55: warning: format not a string literal and no format arguments [-Wformat-security]
+       error (parser->type_definition_forbidden_message);
+                                                       ^
+../../gcc/cp/typeck.c: In function 'tree_node* cp_build_binary_op(location_t, tree_code, tree, tree, tsubst_flags_t)':
+../../gcc/cp/typeck.c:4219:24: warning: format not a string literal and no format arguments [-Wformat-security]
+  error (invalid_op_diag);
+                        ^
+../../gcc/cp/cvt.c: In function 'tree_node* ocp_convert(tree, tree, int, int, tsubst_flags_t)':
+../../gcc/cp/cvt.c:686:26: warning: format not a string literal and no format arguments [-Wformat-security]
+  error (invalid_conv_diag);
+                          ^
+../../gcc/cp/typeck.c: In function 'tree_node* cp_build_unary_op(tree_code, tree, bool, tsubst_flags_t)':
+../../gcc/cp/typeck.c:5881:24: warning: format not a string literal and no format arguments [-Wformat-security]
+  error (invalid_op_diag);
+                        ^
+../../gcc/collect2.c: In function 'void scan_prog_file(const char*, scanpass, scanfilter)':
+../../gcc/collect2.c:2373:37: warning: format not a string literal and no format arguments [-Wformat-security]
+  fatal_error (input_location, errmsg);
+                                     ^
+../../gcc/collect-utils.c: In function 'pex_obj* collect_execute(const char*, char**, const char*, const char*, int, bool)':
+../../gcc/collect-utils.c:195:37: warning: format not a string literal and no format arguments [-Wformat-security]
+  fatal_error (input_location, errmsg);
+                                     ^
+../../gcc/lto-wrapper.c: In function 'bool find_and_merge_options(int, off_t, const char*, cl_decoded_option**, unsigned int*, const char*)':
+../../gcc/lto-wrapper.c:912:8: warning: ignoring return value of 'ssize_t read(int, void*, size_t)', declared with attribute warn_unused_result [-Wunused-result]
+   read (fd, data, length);
+   ~~~~~^~~~~~~~~~~~~~~~~~
+gengtype-lex.c: In function 'int yy_get_next_buffer()':
+gengtype-lex.c:1343:18: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+gengtype-lex.c:2150:3: note: in expansion of macro 'YY_INPUT'
+gengtype-lex.c: In function 'yy_buffer_state* yy_scan_bytes(const char*, yy_size_t)':
+gengtype-lex.c:2658:17: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+/space/rguenther/gcc-7.2.0/gcc-7.2.0/gcc/gengtype-lex.l: In function 'int yylex(const char**)':
+gengtype-lex.c:365:15: warning: this statement may fall through [-Wimplicit-fallthrough=]
+/space/rguenther/gcc-7.2.0/gcc-7.2.0/gcc/gengtype-lex.l:117:1: note: in expansion of macro 'YY_DO_BEFORE_ACTION'
+/space/rguenther/gcc-7.2.0/gcc-7.2.0/gcc/gengtype-lex.l:113:1: note: here
+gengtype-lex.c:365:15: warning: this statement may fall through [-Wimplicit-fallthrough=]
+/space/rguenther/gcc-7.2.0/gcc-7.2.0/gcc/gengtype-lex.l:134:1: note: in expansion of macro 'YY_DO_BEFORE_ACTION'
+/space/rguenther/gcc-7.2.0/gcc-7.2.0/gcc/gengtype-lex.l:131:1: note: here
+../../gcc/gcc.c: In function 'int execute()':
+../../gcc/gcc.c:3096:41: warning: format not a string literal and no format arguments [-Wformat-security]
+      fatal_error (input_location, errmsg);
+                                         ^
+../../gcc/gcc.c: In function 'attempt_status run_attempt(const char**, const char*, const char*, int, int)':
+../../gcc/gcc.c:6798:37: warning: format not a string literal and no format arguments [-Wformat-security]
+  fatal_error (input_location, errmsg);
+                                     ^
+../../gcc/gcc.c: In function 'long unsigned int get_random_number()':
+../../gcc/gcc.c:9600:12: warning: ignoring return value of 'ssize_t read(int, void*, size_t)', declared with attribute warn_unused_result [-Wunused-result]
+       read (fd, &ret, sizeof (HOST_WIDE_INT));
+       ~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../gcc/gcc.c: In function 'void do_report_bug(const char**, int, char**, char**)':
+../../gcc/gcc.c:6864:9: warning: ignoring return value of 'ssize_t write(int, const void*, size_t)', declared with attribute warn_unused_result [-Wunused-result]
+   write (fd, "\n//", 3);
+   ~~~~~~^~~~~~~~~~~~~~~
+../../gcc/gcc.c:6867:13: warning: ignoring return value of 'ssize_t write(int, const void*, size_t)', declared with attribute warn_unused_result [-Wunused-result]
+       write (fd, " ", 1);
+       ~~~~~~^~~~~~~~~~~~
+../../gcc/gcc.c:6868:13: warning: ignoring return value of 'ssize_t write(int, const void*, size_t)', declared with attribute warn_unused_result [-Wunused-result]
+       write (fd, new_argv[i], strlen (new_argv[i]));
+       ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../gcc/gcc.c:6870:9: warning: ignoring return value of 'ssize_t write(int, const void*, size_t)', declared with attribute warn_unused_result [-Wunused-result]
+   write (fd, "\n\n", 2);
+   ~~~~~~^~~~~~~~~~~~~~~
+../../gcc/lto/lto.c: In function 'void lto_resolution_read(splay_tree, FILE*, lto_file*)':
+../../gcc/lto/lto.c:1868:10: warning: ignoring return value of 'int fscanf(FILE*, const char*, ...)', declared with attribute warn_unused_result [-Wunused-result]
+   fscanf (resolution, " ");   /* Read white space. */
+   ~~~~~~~^~~~~~~~~~~~~~~~~
+../../gcc/lto/lto.c:1870:9: warning: ignoring return value of 'size_t fread(void*, size_t, size_t, FILE*)', declared with attribute warn_unused_result [-Wunused-result]
+   fread (obj_name, sizeof (char), name_len, resolution);
+   ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../../gcc/lto/lto.c:1890:10: warning: ignoring return value of 'int fscanf(FILE*, const char*, ...)', declared with attribute warn_unused_result [-Wunused-result]
+   fscanf (resolution, "%u", &num_symbols);
+   ~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+cc1: error: no include path in which to search for stdc-predef.h
+cc1: note: self-tests are not enabled in this build
+*** errlist.c count 134 inflated to GLIBC_2.12 count 135 (old errno.h?)
+./creature.texi:11: warning: @xref node name should not contain `.'
+./string.texi:1089: warning: @xref node name should not contain `.'
+./stdio.texi:1810: warning: @xref node name should not contain `.'
+./stdio.texi:2732: warning: @xref node name should not contain `.'
+./stdio.texi:3480: warning: @xref node name should not contain `.'
+./stdio.texi:4035: warning: @ref node name should not contain `.'
+configure: WARNING: If you wanted to set the --build type, don't use --host.
+    If a cross compiler is detected then cross compile mode will be used.
+configure: WARNING: === You have requested GNU symbol versioning, but
+configure: WARNING: === you are not building a shared libgcc_s.
+configure: WARNING: === Symbol versioning will be disabled.
+../../../libstdc++-v3/src/filesystem/ops.cc: In function 'std::experimental::filesystem::v1::file_type {anonymous}::make_file_type(const stat_type&)':
+../../../libstdc++-v3/src/filesystem/ops.cc:256:35: warning: unused parameter 'st' [-Wunused-parameter]
+   make_file_type(const stat_type& st) noexcept
+                                   ^~
+In file included from ../../../libstdc++-v3/src/filesystem/cow-ops.cc:26:0:
+../../../libstdc++-v3/src/filesystem/ops.cc: In function 'std::experimental::filesystem::v1::file_type {anonymous}::make_file_type(const stat_type&)':
+../../../libstdc++-v3/src/filesystem/ops.cc:256:35: warning: unused parameter 'st' [-Wunused-parameter]
+   make_file_type(const stat_type& st) noexcept
+                                   ^~
+In file included from ../../binutils/syslex_wrap.c:25:0:
+syslex.c: In function 'yy_get_next_buffer':
+syslex.c:1226:44: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+arlex.c: In function 'yy_get_next_buffer':
+arlex.c:1352:44: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+In file included from ../../ld/ldlex-wrapper.c:26:0:
+ldlex.c: In function 'yy_get_next_buffer':
+ldlex.c:3540:44: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+In file included from ../../ld/ldlex-wrapper.c:26:0:
+ldlex.c: In function 'yy_get_next_buffer':
+ldlex.c:3540:44: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+*** This configuration is not supported in the following subdirectories:
+     gnattools gotools target-libada target-libhsail-rt target-libgfortran target-libbacktrace target-libgo target-libffi target-libobjc target-libgomp target-liboffloadmic
+    (Any other directories should still work fine.)
+configure: WARNING: using cross tools not prefixed with host triplet
+configure: WARNING: the "none" host is obsolete, use --disable-assembly
+configure: WARNING: cannot check for properly working vsnprintf when cross compiling, will assume it's ok
+libtool: install: warning: remember to run `libtool --finish /tool/cross/libexec/gcc/x86_64-pc-linux-gnu/7.2.0'
+configure: WARNING: fixed-point is not supported for this target, ignored
+Links are now set up to build a native compiler for x86_64-pc-linux-gnu.
+gengtype-lex.c: In function 'int yy_get_next_buffer()':
+gengtype-lex.c:1343:18: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+gengtype-lex.c:2150:3: note: in expansion of macro 'YY_INPUT'
+gengtype-lex.c: In function 'yy_buffer_state* yy_scan_bytes(const char*, yy_size_t)':
+gengtype-lex.c:2658:17: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+/space/rguenther/gcc-7.2.0/gcc-7.2.0/gcc/gengtype-lex.l: In function 'int yylex(const char**)':
+gengtype-lex.c:365:15: warning: this statement may fall through [-Wimplicit-fallthrough=]
+/space/rguenther/gcc-7.2.0/gcc-7.2.0/gcc/gengtype-lex.l:117:1: note: in expansion of macro 'YY_DO_BEFORE_ACTION'
+/space/rguenther/gcc-7.2.0/gcc-7.2.0/gcc/gengtype-lex.l:113:1: note: here
+gengtype-lex.c:365:15: warning: this statement may fall through [-Wimplicit-fallthrough=]
+/space/rguenther/gcc-7.2.0/gcc-7.2.0/gcc/gengtype-lex.l:134:1: note: in expansion of macro 'YY_DO_BEFORE_ACTION'
+/space/rguenther/gcc-7.2.0/gcc-7.2.0/gcc/gengtype-lex.l:131:1: note: here
+GIMPLE decision tree has 1882 leafs, maximum depth 12 and a total number of 7473 nodes
+removed 1098 duplicate tails
+GENERIC decision tree has 1840 leafs, maximum depth 12 and a total number of 7247 nodes
+removed 1059 duplicate tails
+Statistics for recog:
+  Number of decisions:  40136
+  longest path:           381 (code:   3713)
+  longest backtrack:       27 (code:   4427)
+Statistics for split_insns:
+  Number of decisions:   2571
+  longest path:            81 (code:    452)
+  longest backtrack:       18 (code:    421)
+Statistics for peephole2_insns:
+  Number of decisions:   1420
+  longest path:           194 (code:     79)
+  longest backtrack:       17 (code:    158)
+Shared 30074 out of 59977 states by creating 7944 new states, saving 22130
+gengtype-lex.c: In function 'int yy_get_next_buffer()':
+gengtype-lex.c:1343:18: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+gengtype-lex.c:2150:3: note: in expansion of macro 'YY_INPUT'
+gengtype-lex.c: In function 'yy_buffer_state* yy_scan_bytes(const char*, yy_size_t)':
+gengtype-lex.c:2658:17: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+/space/rguenther/gcc-7.2.0/gcc-7.2.0/gcc/gengtype-lex.l: In function 'int yylex(const char**)':
+gengtype-lex.c:365:15: warning: this statement may fall through [-Wimplicit-fallthrough=]
+/space/rguenther/gcc-7.2.0/gcc-7.2.0/gcc/gengtype-lex.l:117:1: note: in expansion of macro 'YY_DO_BEFORE_ACTION'
+/space/rguenther/gcc-7.2.0/gcc-7.2.0/gcc/gengtype-lex.l:113:1: note: here
+gengtype-lex.c:365:15: warning: this statement may fall through [-Wimplicit-fallthrough=]
+/space/rguenther/gcc-7.2.0/gcc-7.2.0/gcc/gengtype-lex.l:134:1: note: in expansion of macro 'YY_DO_BEFORE_ACTION'
+/space/rguenther/gcc-7.2.0/gcc-7.2.0/gcc/gengtype-lex.l:131:1: note: here
+Applying sun_malloc               to malloc.h
+Applying sysv68_string            to string.h
+Applying io_quotes_use            to asm/mtrr.h
+Applying pthread_incomplete_struct_argument to pthread.h
+Applying io_quotes_use            to drm/msm_drm.h
+Applying io_quotes_use            to drm/mga_drm.h
+Applying io_quotes_use            to drm/vgem_drm.h
+Applying io_quotes_use            to drm/r128_drm.h
+Applying io_quotes_use            to drm/radeon_drm.h
+Applying io_quotes_use            to drm/omap_drm.h
+Applying io_quotes_use            to drm/sis_drm.h
+Applying io_quotes_use            to drm/exynos_drm.h
+Applying io_quotes_use            to drm/etnaviv_drm.h
+Applying io_quotes_use            to drm/i915_drm.h
+Applying io_quotes_use            to drm/drm.h
+Applying io_quotes_use            to drm/amdgpu_drm.h
+Applying io_quotes_use            to drm/i810_drm.h
+Applying io_quotes_use            to drm/tegra_drm.h
+Applying io_quotes_use            to drm/vc4_drm.h
+Applying io_quotes_use            to drm/nouveau_drm.h
+Applying io_quotes_use            to drm/via_drm.h
+Applying io_quotes_use            to drm/savage_drm.h
+Applying io_quotes_use            to sound/asound.h
+Applying io_quotes_use            to sound/compress_offload.h
+Applying io_quotes_use            to sound/emu10k1.h
+Applying io_quotes_use            to sound/asequencer.h
+Applying io_quotes_use            to rdma/rdma_user_ioctl.h
+Applying hpux8_bogus_inlines      to math.h
+Applying io_quotes_use            to sys/raw.h
+Applying io_quotes_use            to sys/mount.h
+Applying io_quotes_use            to scsi/cxlflash_ioctl.h
+Applying io_quotes_use            to video/sisfb.h
+Applying io_quotes_use            to misc/cxl.h
+Applying io_quotes_use            to linux/spi/spidev.h
+Applying io_quotes_use            to linux/gpio.h
+Applying io_quotes_def            to linux/pci_regs.h
+Applying io_quotes_use            to linux/usb/tmc.h
+Applying io_quotes_def            to linux/soundcard.h
+Applying io_quotes_use            to linux/pktcdvd.h
+Applying io_quotes_use            to linux/rio_cm_cdev.h
+Applying io_quotes_use            to linux/nbd.h
+Applying io_quotes_use            to linux/vfio.h
+Applying io_quotes_use            to linux/atmbr2684.h
+Applying io_quotes_use            to linux/tee.h
+Applying io_quotes_use            to linux/dm-ioctl.h
+Applying io_quotes_use            to linux/ipmi.h
+Applying io_quotes_use            to linux/sync_file.h
+Applying io_quotes_use            to linux/i2o-dev.h
+Applying io_quotes_use            to linux/vtpm_proxy.h
+Applying io_quotes_use            to linux/aspeed-lpc-ctrl.h
+Applying io_quotes_use            to linux/userfaultfd.h
+Applying io_quotes_use            to linux/kvm.h
+Applying io_quotes_use            to linux/fs.h
+Applying io_quotes_use            to linux/raw.h
+Applying io_quotes_use            to linux/omapfb.h
+Applying io_quotes_use            to linux/cciss_ioctl.h
+Applying io_quotes_use            to linux/synclink.h
+Applying io_quotes_use            to linux/blkpg.h
+Applying io_quotes_use            to linux/fuse.h
+Applying io_quotes_use            to linux/rfkill.h
+Applying io_quotes_use            to linux/uinput.h
+Applying io_quotes_use            to linux/dn.h
+Applying io_quotes_use            to linux/nsfs.h
+Applying io_quotes_use            to linux/vhost.h
+Applying io_quotes_def            to linux/version.h
+Applying io_quotes_use            to linux/raid/md_u.h
+Applying io_quotes_use            to linux/dma-buf.h
+Applying io_quotes_use            to linux/ppdev.h
+Applying io_quotes_use            to linux/btrfs.h
+Applying io_quotes_use            to linux/genwqe/genwqe_card.h
+Applying io_quotes_use            to linux/lightnvm.h
+Applying io_quotes_use            to linux/watchdog.h
+Applying io_quotes_use            to linux/hsi/hsi_char.h
+Applying io_quotes_use            to linux/hsi/cs-protocol.h
+Applying io_quotes_use            to linux/ptp_clock.h
+Applying io_quotes_use            to linux/auto_fs.h
+Applying io_quotes_use            to linux/cm4000_cs.h
+Applying io_quotes_use            to linux/suspend_ioctls.h
+Applying io_quotes_use            to linux/random.h
+Applying io_quotes_use            to linux/vm_sockets.h
+Applying io_quotes_use            to linux/blkzoned.h
+Applying io_quotes_use            to linux/fd.h
+Applying io_quotes_use            to linux/reiserfs_fs.h
+Applying io_quotes_use            to linux/mmtimer.h
+Applying io_quotes_use            to linux/phantom.h
+Applying io_quotes_use            to linux/if_pppox.h
+Applying io_quotes_def            to linux/ppp-comp.h
+Applying io_quotes_use            to linux/media.h
+Applying io_quotes_use            to linux/rpmsg.h
+Applying io_quotes_use            to linux/auto_fs4.h
+Applying io_quotes_use            to linux/agpgart.h
+Applying io_quotes_use            to linux/ndctl.h
+Applying io_quotes_use            to linux/mmc/ioctl.h
+Applying io_quotes_use            to linux/bt-bmc.h
+Applying io_quotes_use            to linux/gigaset_dev.h
+Applying glibc_stdint             to stdint.h
+Applying io_quotes_use            to mtd/ubi-user.h
+cc1: note: self-tests are not enabled in this build
+.libs/gets-chk.o: In function `__gets_chk':
+/tool/tmp/gcc-7.2.0/build/x86_64-pc-linux-gnu/libssp/../../../libssp/gets-chk.c:74: warning: the `gets' function is dangerous and should not be used.
+../../../../libsanitizer/sanitizer_common/sanitizer_posix.cc: In function '__sanitizer::fd_t __sanitizer::OpenFile(const char*, __sanitizer::FileAccessMode, __sanitizer::error_t*)':
+../../../../libsanitizer/sanitizer_common/sanitizer_posix.cc:213:27: warning: 'flags' may be used uninitialized in this function [-Wmaybe-uninitialized]
+   fd_t res = internal_open(filename, flags, 0660);
+              ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+In file included from ../../../../libsanitizer/asan/asan_interceptors.cc:203:0:
+../../../../libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc: In function '__sanitizer::uptr __interceptor_ptrace(int, int, void*, void*)':
+../../../../libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:2746:21: warning: 'local_iovec.__sanitizer::__sanitizer_iovec::iov_len' may be used uninitialized in this function [-Wmaybe-uninitialized]
+   __sanitizer_iovec local_iovec;
+                     ^~~~~~~~~~~
+../../../../libsanitizer/asan/asan_interceptors.cc:57:10: warning: 'local_iovec.__sanitizer::__sanitizer_iovec::iov_base' may be used uninitialized in this function [-Wmaybe-uninitialized]
+     uptr __offset = (uptr)(offset);                                     \
+          ^~~~~~~~
+In file included from ../../../../libsanitizer/asan/asan_interceptors.cc:203:0:
+../../../../libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:2746:21: note: 'local_iovec.__sanitizer::__sanitizer_iovec::iov_base' was declared here
+   __sanitizer_iovec local_iovec;
+                     ^~~~~~~~~~~
+../../../../libsanitizer/ubsan/ubsan_handlers_cxx.cc: In function 'void __ubsan::HandleCFIBadType(__ubsan::CFICheckFailData*, __ubsan::ValueHandle, bool, __ubsan::ReportOptions)':
+../../../../libsanitizer/ubsan/ubsan_handlers_cxx.cc:109:15: warning: 'CheckKindStr' may be used uninitialized in this function [-Wmaybe-uninitialized]
+   const char *CheckKindStr;
+               ^~~~~~~~~~~~
+../../../../libsanitizer/tsan/tsan_interceptors.cc: In function '__sanitizer::uptr __interceptor_ptrace(int, int, void*, void*)':
+../../../../libsanitizer/tsan/tsan_interceptors.cc:2185:20: warning: 'local_iovec.__sanitizer::__sanitizer_iovec::iov_len' may be used uninitialized in this function [-Wmaybe-uninitialized]
+   MemoryAccessRange(((TsanInterceptorContext *)ctx)->thr,                 \
+                    ^
+In file included from ../../../../libsanitizer/tsan/tsan_interceptors.cc:2293:0:
+../../../../libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:2746:21: note: 'local_iovec.__sanitizer::__sanitizer_iovec::iov_len' was declared here
+   __sanitizer_iovec local_iovec;
+                     ^~~~~~~~~~~
+../../../../libsanitizer/tsan/tsan_interceptors.cc:2185:20: warning: 'local_iovec.__sanitizer::__sanitizer_iovec::iov_base' may be used uninitialized in this function [-Wmaybe-uninitialized]
+   MemoryAccessRange(((TsanInterceptorContext *)ctx)->thr,                 \
+                    ^
+In file included from ../../../../libsanitizer/tsan/tsan_interceptors.cc:2293:0:
+../../../../libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:2746:21: note: 'local_iovec.__sanitizer::__sanitizer_iovec::iov_base' was declared here
+   __sanitizer_iovec local_iovec;
+                     ^~~~~~~~~~~
+libtool: install: warning: relinking `libcilkrts.la'
+libtool: install: warning: relinking `liblsan.la'
+libtool: install: warning: relinking `libasan.la'
+libtool: install: warning: relinking `libubsan.la'
+libtool: install: warning: relinking `libtsan.la'

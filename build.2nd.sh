@@ -22,11 +22,9 @@ cd       build
       --host=$LFS_TGT                    \
       --build=$(../scripts/config.guess) \
       --disable-profile                  \
-      --enable-kernel=2.6.32             \
-      --enable-obsolete-rpc              \
+      --enable-kernel=3.2                \
       --with-headers=$CROSS/include      \
       libc_cv_forced_unwind=yes          \
-      libc_cv_ctors_header=yes           \
       libc_cv_c_cleanup=yes
 
 $MAKE $MFLAGS
@@ -73,6 +71,13 @@ do
   touch $file.orig
 done
 
+case $(uname -m) in
+  x86_64|aarch64)
+    sed -e '/m64=/s/lib64/lib/' \
+        -i.orig gcc/config/i386/t-linux64
+ ;;
+esac
+
 mkdir -v build
 cd       build
 
@@ -83,7 +88,7 @@ cd       build
     --disable-nls                   \
     --disable-libstdcxx-threads     \
     --disable-libstdcxx-pch         \
-    --with-gxx-include-dir=$CROSS/$LFS_TGT/include/c++/5.3.0
+    --with-gxx-include-dir=$CROSS/$LFS_TGT/include/c++/7.2.0
 
 $MAKE $MFLAGS
 $MAKE $MFLAGS install
@@ -150,6 +155,13 @@ do
 #define STANDARD_STARTFILE_PREFIX_2 \"\"" >> $file
   touch $file.orig
 done
+
+case $(uname -m) in
+  x86_64|aarch64)
+    sed -e '/m64=/s/lib64/lib/' \
+        -i.orig gcc/config/i386/t-linux64
+ ;;
+esac
 
 mkdir -v build
 cd       build
