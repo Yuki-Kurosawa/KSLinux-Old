@@ -98,7 +98,7 @@ EOF
 chmod 0644 $KS/etc/group
 
 cat > $KS/etc/issue <<EOF
-KSLinux 17.5 LTS (Package Build Enviroment) \n \l
+KSLinux 18.04 LTS (Package Build Enviroment) \n \l
 EOF
 chmod 0644 $KS/etc/issue
 
