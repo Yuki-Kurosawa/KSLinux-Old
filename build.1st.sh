@@ -79,7 +79,7 @@ cd       build
 ../configure                                       \
     --target=$LFS_TGT                              \
     --prefix=$CROSS                                \
-    --with-glibc-version=2.11                      \
+    --with-glibc-version=2.27                      \
     --with-sysroot=$LFS                            \
     --with-newlib                                  \
     --without-headers                              \

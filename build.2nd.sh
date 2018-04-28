@@ -22,7 +22,7 @@ cd       build
       --host=$LFS_TGT                    \
       --build=$(../scripts/config.guess) \
       --disable-profile                  \
-      --enable-kernel=3.2                \
+      --enable-kernel=4.13                \
       --with-headers=$CROSS/include      \
       libc_cv_forced_unwind=yes          \
       libc_cv_c_cleanup=yes
@@ -91,7 +91,7 @@ cd       build
     --disable-nls                   \
     --disable-libstdcxx-threads     \
     --disable-libstdcxx-pch         \
-    --with-gxx-include-dir=$CROSS/$LFS_TGT/include/c++/7.2.0
+    --with-gxx-include-dir=$CROSS/$LFS_TGT/include/c++/7.3.0
 
 $MAKE $MFLAGS
 $MAKE $MFLAGS install
