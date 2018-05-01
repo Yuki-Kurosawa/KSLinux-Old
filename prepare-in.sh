@@ -1,4 +1,7 @@
 mkdir -pv $KS/{dev,proc,sys,run}
+mkdir -pv $KS/{bin,sbin,etc,usr}
+mkdir -pv $KS/usr/{bin,sbin}
+
 mknod -m 600 $KS/dev/console c 5 1
 mknod -m 666 $KS/dev/null c 1 3
 cat > $KS/sbin/init << EOF
@@ -24,8 +27,8 @@ ln -s /sbin/init $KS/init
 
 cat > $KS/sbin/setup.sh << EOF
 #!/tool/bin/bash
-mkdir -pv /{dev,proc,sys,sbin}
-mkdir -pv /{bin,boot,etc/{opt,sysconfig},home,lib/firmware,mnt,opt}
+mkdir -pv /{dev,proc,sys}
+mkdir -pv /{boot,etc/{opt,sysconfig},home,lib/firmware,mnt,opt}
 mkdir -pv /{media/{floppy,cdrom},sbin,srv,var}
 install -dv -m 0750 /root
 install -dv -m 1777 /tmp /var/tmp
