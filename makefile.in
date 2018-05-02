@@ -1,0 +1,90 @@
+#! ./automake
+
+.PHONY: all clean distclean permisson
+
+all: cross-gcc-stage1 cross-gcc-stage2 tmp-system
+
+envsetup.sh: 
+	@echo "No envsetup.sh here"
+	@exit 1
+
+build.1st: envsetup.sh build.1st.sh
+	@cat envsetup.sh >build.1st
+	@cat build.1st.sh >>build.1st
+	@chmod a+x build.1st
+
+build.2nd: envsetup.sh build.2nd.sh
+	@cat envsetup.sh >build.2nd
+	@cat build.2nd.sh >>build.2nd
+	@sed "11,12d" build.2nd > build.2nd.so
+	@mv build.2nd.so build.2nd
+	@chmod a+x build.2nd
+
+build.tmp: envsetup.sh build.tmp.sh
+	@cat envsetup.sh >build.tmp
+	@cat build.tmp.sh >>build.tmp
+	@sed "11,12d" build.tmp > build.tmp.so
+	@mv build.tmp.so build.tmp
+	@chmod a+x build.tmp
+
+cross-gcc-stage1: build.1st
+	@./build.1st
+	@touch cross-gcc-stage1
+
+cross-gcc-stage2: cross-gcc-stage1 build.2nd 
+	@./build.2nd
+	@touch cross-gcc-stage2
+
+tmp-system: cross-gcc-stage2 build.tmp
+	@./build.tmp
+	@touch tmp-system
+
+permission: permission.in
+	@./autosrc permission.in permission.out
+	@chmod a+x permission.out
+	@cat envsetup.sh > fixperm.sh
+	@sed "11,12d" fixperm.sh > fixperm
+	@cat fixperm > fixperm.sh
+	@rm fixperm
+	@cat permission.out >> fixperm.sh
+	@chmod a+x fixperm.sh
+	@rm permission.out
+	@./fixperm.sh
+
+kpm.sh: kpm-in.sh
+	@cat envsetup.sh > kpm.sh
+	@sed "11,12d" kpm.sh > kpm.o
+	@cat kpm.o > kpm.sh
+	@rm kpm.o
+	@cat kpm-in.sh >> kpm.sh
+	@chmod a+x kpm.sh
+
+kpm: kpm.sh
+	@./kpm.sh
+	@touch kpm
+
+prepare.sh: prepare-in.sh
+	@cat envsetup.sh > prepare.sh
+	@sed "11,12d" prepare.sh > prepare.o
+	@cat prepare.o > prepare.sh
+	@rm prepare.o
+	@cat prepare-in.sh >> prepare.sh
+	@chmod a+x prepare.sh
+
+prepare: prepare.sh
+	@./prepare.sh
+	@touch prepare
+
+clean: distclean
+	@rm -rf makefile envsetup.sh build.1st build.2nd cross-gcc-stage1 cross-gcc-stage2 build.tmp \
+	tmp-system kpm.sh kpm fixperm.sh prepare.sh prepare
+
+distclean:
+	@cat envsetup.sh > clean.sh
+	@sed "11,12d" clean.sh > clean.o
+	@cat clean.o > clean.sh
+	@rm clean.o
+	@cat clean.in >> clean.sh
+	@chmod a+x clean.sh
+	@./clean.sh
+	@rm clean.sh

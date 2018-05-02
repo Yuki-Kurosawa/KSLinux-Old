@@ -1,0 +1,26 @@
+#!/bin/bash
+
+export SRCROOT=@SRCDIR@
+export KS=@PREFIX@
+export BUILDTMP=@TMPDIR@
+export CROSS=@CROSS@
+export LIBPARENT=@SYSROOT@
+export SCRIPTROOT=@pwd@
+export UNAMEM=@UNAMEM@
+
+# set env var
+rm -rf {$KS,$BUILDTMP,$CROSS} 2>/dev/null
+mkdir -p {$KS,$BUILDTMP,$CROSS} 2>/dev/null
+
+set +h
+umask 022
+LFS=$KS
+LC_ALL=POSIX
+LFS_TGT=@TARGET@
+
+PATH=$CROSS/bin:/bin:/usr/bin
+MAKE=make
+MFLAGS=-j4
+GFLAGS="@GFLAGS@"
+export LFS LC_ALL LFS_TGT PATH MAKE MFLAGS GFLAGS UNAMEM
+

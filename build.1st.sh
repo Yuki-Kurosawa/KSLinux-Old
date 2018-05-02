@@ -1,39 +1,16 @@
-#!/bin/bash
-
-export SRCROOT=/tool/7.9
-export KS=/ks/ramfs
-export BUILDTMP=/tool/tmp
-export CROSS=/tool/cross
-export LIBPARENT=/tool
-export SCRIPTROOT=/tool
-
-# set env var
-rm -rf {$KS,$BUILDTMP,$CROSS} 2>/dev/null
-mkdir -p {$KS,$BUILDTMP,$CROSS} 2>/dev/null
-
-set +h
-umask 022
-LFS=$KS
-LC_ALL=POSIX
-LFS_TGT=$(uname -m)-ks-linux-gnu
-PATH=$CROSS/bin:/bin:/usr/bin
-MAKE=make
-MFLAGS=-j4
-export LFS LC_ALL LFS_TGT PATH MAKE MFLAGS
 
 # link output folder
 mkdir -p $KS$LIBPARENT
-ln -sv $CROSS $KS$CROSS
+ln -sv $CROSS $KS$LIBPARENT$(echo $CROSS|sed -rne "s@$LIBPARENT@@p")
 
 # build tmp system
-cd $BUILDTMP
-# build binutils-1
 
-tar xvf $SRCROOT/binutils-2.26.tar.bz2
-cd binutils-2.26
+# build binutils-1
+cd $BUILDTMP
+tar xvf $SRCROOT/$BINUTILS_TAR
+cd $BINUTILS_SRC
 mkdir -v build
 cd build
-
 
 ../configure --prefix=$CROSS            \
              --with-sysroot=$LFS        \
@@ -45,27 +22,35 @@ cd build
 $MAKE $MFLAGS
 
 case $(uname -m) in
-  x86_64) mkdir -v $CROSS/lib && ln -sv lib $CROSS/lib64 ;;
+  x86_64|aarch64) mkdir -v $CROSS/lib && ln -sv lib $CROSS/lib64 ;;
 esac
 
 $MAKE $MFLAGS install
 cd ../../
-rm -rf binutils-2.26
+rm -rf $BINUTILS_SRC
 
 # build gcc-1
 cd $BUILDTMP
-tar xvf $SRCROOT/gcc-5.3.0.tar.bz2
-cd gcc-5.3.0
+tar xvf $SRCROOT/$GCC_TAR
+cd $GCC_SRC
 
-tar -xf $SRCROOT/mpfr-3.1.3.tar.xz
-mv -v mpfr-3.1.3 mpfr
-tar -xf $SRCROOT/gmp-6.1.0.tar.xz
-mv -v gmp-6.1.0 gmp
-tar -xf $SRCROOT/mpc-1.0.3.tar.gz
-mv -v mpc-1.0.3 mpc
+case "$UNAMEM" in
+		i386|i486|i586|i686|amd64|x86_64)
+      tar -xf $SRCROOT/$MPFR_TAR
+      mv -v $MPFR_SRC mpfr
+      tar -xf $SRCROOT/$GMP_TAR
+      mv -v $GMP_SRC gmp
+      tar -xf $SRCROOT/$MPC_TAR
+      mv -v $MPC_SRC mpc
+			;;
+		armv7l|armhf|armv8l|aarch64)
+      ./contrib/download_prerequisites
+			;;
+	esac
+
 
 for file in \
- $(find gcc/config -name linux64.h -o -name linux.h -o -name sysv4.h)
+ $(find gcc/config -name linux64.h -o -name linux.h -o -name sysv4.h -o -name aarch64-linux.h -o -name linux-eabi.h)
 do
   cp -uv $file{,.orig}
   sed -e "s@/lib\(64\)\?\(32\)\?/ld@$CROSS&@g" \
@@ -78,13 +63,24 @@ do
   touch $file.orig
 done
 
+case $(uname -m) in
+  x86_64)
+    sed -e '/m64=/s/lib64/lib/' \
+        -i.orig gcc/config/i386/t-linux64
+ ;;
+  aarch64)
+	sed -e '/mabi.lp64=/s/lib64/lib/' \
+        -i.orig gcc/config/aarch64/t-aarch64-linux
+ ;;
+esac
+
 mkdir -v build
 cd       build
 
 ../configure                                       \
     --target=$LFS_TGT                              \
     --prefix=$CROSS                                \
-    --with-glibc-version=2.11                      \
+    --with-glibc-version=2.27                      \
     --with-sysroot=$LFS                            \
     --with-newlib                                  \
     --without-headers                              \
@@ -101,11 +97,13 @@ cd       build
     --disable-libssp                               \
     --disable-libvtv                               \
     --disable-libstdcxx                            \
-    --enable-languages=c,c++
+    --disable-libmudflap                           \
+    --disable-libmpx				   \
+    --enable-languages=c,c++ $GFLAGS
 
 $MAKE $MFLAGS
 $MAKE $MFLAGS install
 cd ../../
-rm -rf  gcc-5.3.0
-source $SCRIPTROOT/build.2nd.sh
+rm -rf  $GCC_SRC
+
 

@@ -1,0 +1,23 @@
+#!/usr/bin/perl
+
+if ($ARGV[0] eq ""){
+	print "Kurosawa automake ver 1.0\n";
+	print "Usage: automake [in] [out]\n\n";
+}
+else{
+	open FILE,'<',"$ARGV[0]" or die "NO SUCH FILE $ARGV[0] !\n";
+	$out=$ARGV[1];
+	if($out eq ""){
+		$out="makefile";
+	}
+	open OUT,'>',$out or die "OPEN FILE $out FAILED\n";
+	while ($line=<FILE>){
+		if (substr($line,0,1) eq "#"){
+		}
+		else{
+			print OUT $line;
+		}
+	}
+	close FILE;
+	close OUT;
+}
