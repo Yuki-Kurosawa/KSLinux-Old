@@ -1,4 +1,7 @@
 mkdir -pv $KS/{dev,proc,sys,run}
+mkdir -pv $KS/{bin,sbin,etc,usr}
+mkdir -pv $KS/usr/{bin,sbin}
+
 mknod -m 600 $KS/dev/console c 5 1
 mknod -m 666 $KS/dev/null c 1 3
 cat > $KS/sbin/init << EOF
@@ -25,7 +28,7 @@ ln -s /sbin/init $KS/init
 cat > $KS/sbin/setup.sh << EOF
 #!/tool/bin/bash
 mkdir -pv /{dev,proc,sys}
-mkdir -pv /{bin,boot,etc/{opt,sysconfig},home,lib/firmware,mnt,opt}
+mkdir -pv /{boot,etc/{opt,sysconfig},home,lib/firmware,mnt,opt}
 mkdir -pv /{media/{floppy,cdrom},sbin,srv,var}
 install -dv -m 0750 /root
 install -dv -m 1777 /tmp /var/tmp
@@ -98,13 +101,13 @@ EOF
 chmod 0644 $KS/etc/group
 
 cat > $KS/etc/issue <<EOF
-KSLinux 17.5 LTS (Package Build Enviroment) \n \l
+KSLinux 18.04 LTS (Package Build Enviroment) \n \l
 EOF
 chmod 0644 $KS/etc/issue
 
-chroot "$KS" /tools/bin/env -i \
+chroot "$KS" $CROSS/bin/env -i \
     HOME=/root                  \
     TERM="$TERM"                \
     PS1='\u:\w\$ '              \
-    PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin \
-    /tools/bin/bash /sbin/setup.sh
+    PATH=/bin:/usr/bin:/sbin:/usr/sbin:$CROSS/bin \
+    $CROSS/bin/bash /sbin/setup.sh

@@ -79,7 +79,7 @@ CONF_SH_BASH(){
 			echo "rm -rf /bin/sh && ln -s /bin/bash /bin/sh"
 		else
 			echo "Please run following command with root and select No:"
-			echo "$OPM-reconfigure $SH"
+			echo "dpkg-reconfigure $SH"
 		fi
 		}
 		msg=$(err)
@@ -572,23 +572,23 @@ CONF_OS(){
 	case $OSTYPE in
 		Ubuntu)
 			UBUNTU=1
-			OPM=dpkg
+			OPM=apt
 			;;
 		Debian)
 			DEBIAN=1
-			OPM=dpkg
+			OPM=apt
 			;;
 		Kali)
 			KALI=1
-			OPM=dpkg
+			OPM=apt
 			;;
 		Deepin)
 			DEEPIN=1
-			OPM=dpkg
+			OPM=apt
 			;;
 		KSLinux|Kurosawa)
 			KS=1
-			OPM=kpm
+			OPM=kpt
 			;;
 		RHEL|Fedora|CentOS)
 			RPM=1
