@@ -209,8 +209,8 @@ cd $PERL_SRC
 sh Configure -des -Dprefix=$CROSS -Dlibs=-lm
 $MAKE $MFLAGS
 cp -v perl cpan/podlators/pod2man $CROSS/bin
-mkdir -pv $CROSS/lib/perl5/5.22.1
-cp -Rv lib/* $CROSS/lib/perl5/5.22.1
+mkdir -pv $CROSS/lib/perl5/5.26.1
+cp -Rv lib/* $CROSS/lib/perl5/5.26.1
 cd ..
 rm -rf $PERL_SRC
 
