@@ -523,11 +523,11 @@ CONF_PREINIT(){
 	case "$UNAMEM" in
 		i386|i486|i586|i686)
 			TARGET=${UNAMEM}-ks-linux-gnu
-			GFLAGS=""
+			GFLAGS="--with-arch=core2 --with-tune=generic"
 			;;
 		x86_64|amd64)
 			TARGET=${UNAMEM}-ks-linux-gnu
-			GFLAGS=""
+			GFLAGS="--with-arch=core2 --with-tune=generic"
 			;;
 		armv7l|armhf)
 			TARGET=arm-ks-linux-gnueabihf
