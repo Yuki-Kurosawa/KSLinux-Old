@@ -53,7 +53,24 @@ ln -sv $CROSS/bin/{bash,cat,echo,pwd,stty} /bin
 ln -sv $CROSS/bin/perl /usr/bin
 ln -sv $CROSS/lib/libgcc_s.so{,.1} /usr/lib
 ln -sv $CROSS/lib/libstdc++.so{,.6} /usr/lib
-sed 's$CROSS/usr/' $CROSS/lib/libstdc++.la > /usr/lib/libstdc++.la
+sed "s$CROSS/usr/" $CROSS/lib/libstdc++.la > /usr/lib/libstdc++.la
+
+for lib in blkid lzma mount uuid
+do
+    ln -sv $CROSS/lib$lib.so* /usr/lib
+done
+
+ln -svf $CROSS/include/blkid    /usr/include
+ln -svf $CROSS/include/libmount /usr/include
+ln -svf $CROSS/include/uuid     /usr/include
+
+install -vdm755 /usr/lib/pkgconfig
+for pc in blkid mount uuid
+do
+    sed "s@$CROSS@usr@g" $CROSS/lib/pkgconfig/${pc}.pc \
+        > /usr/lib/pkgconfig/${pc}.pc
+done
+
 ln -sv bash /bin/sh
 
 ln -sv /proc/self/mounts /etc/mtab
@@ -69,6 +86,14 @@ root:x:0:0:root:/root:/bin/bash
 bin:x:1:1:bin:/dev/null:/bin/false
 daemon:x:6:6:Daemon User:/dev/null:/bin/false
 messagebus:x:18:18:D-Bus Message Daemon User:/var/run/dbus:/bin/false
+systemd-bus-proxy:x:72:72:systemd Bus Proxy:/:/bin/false
+systemd-journal-gateway:x:73:73:systemd Journal Gateway:/:/bin/false
+systemd-journal-remote:x:74:74:systemd Journal Remote:/:/bin/false
+systemd-journal-upload:x:75:75:systemd Journal Upload:/:/bin/false
+systemd-network:x:76:76:systemd Network Management:/:/bin/false
+systemd-resolve:x:77:77:systemd Resolver:/:/bin/false
+systemd-timesync:x:78:78:systemd Time Synchronization:/:/bin/false
+systemd-coredump:x:79:79:systemd Core Dumper:/:/bin/false
 nobody:x:99:99:Unprivileged User:/dev/null:/bin/false
 EOF
 chmod 0644 $KS/etc/passwd
@@ -95,6 +120,15 @@ messagebus:x:18:
 systemd-journal:x:23:
 input:x:24:
 mail:x:34:
+kvm:x:61:
+systemd-bus-proxy:x:72:
+systemd-journal-gateway:x:73:
+systemd-journal-remote:x:74:
+systemd-journal-upload:x:75:
+systemd-network:x:76:
+systemd-resolve:x:77:
+systemd-timesync:x:78:
+systemd-coredump:x:79:
 nogroup:x:99:
 users:x:999:
 EOF
