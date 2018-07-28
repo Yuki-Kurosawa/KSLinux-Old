@@ -53,7 +53,7 @@ ln -sv $CROSS/bin/{bash,cat,echo,pwd,stty} /bin
 ln -sv $CROSS/bin/perl /usr/bin
 ln -sv $CROSS/lib/libgcc_s.so{,.1} /usr/lib
 ln -sv $CROSS/lib/libstdc++.so{,.6} /usr/lib
-sed "s$CROSS/usr/" $CROSS/lib/libstdc++.la > /usr/lib/libstdc++.la
+sed "s@$CROSS@usr@" $CROSS/lib/libstdc++.la > /usr/lib/libstdc++.la
 
 for lib in blkid lzma mount uuid
 do
